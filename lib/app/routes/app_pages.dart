@@ -8,6 +8,8 @@ import '../modules/auth/signup/bindings/signup_binding.dart';
 import '../modules/auth/signup/views/signup_view.dart';
 import '../modules/user/home/bindings/home_binding.dart';
 import '../modules/user/home/views/home_view.dart';
+import '../modules/user/user_dashboard/bindings/user_dashboard_binding.dart';
+import '../modules/user/user_dashboard/views/user_dashboard_view.dart';
 
 part 'app_routes.dart';
 
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.FORGOT_PASSWORD,
       page: () => const ForgotPasswordView(),
       binding: ForgotPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.USER_DASHBOARD,
+      page: () => UserDashboardView(),
+      binding: UserDashboardBinding(),
     ),
   ];
 }

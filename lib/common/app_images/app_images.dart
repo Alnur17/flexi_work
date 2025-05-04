@@ -12,16 +12,20 @@ class AppImages {
   static const eyeClose = "assets/icons/eye close.png";
   static const mail = "assets/icons/mail.png";
   static const person = "assets/icons/User_light.png";
+  static const profile = "assets/icons/profile.png";
+  static const profileFilled = "assets/icons/profile fill.png";
   static const personFilled = "assets/icons/User_fill.png";
   static const home = "assets/icons/home.png";
-  static const homeFilled = "assets/icons/Home_fill.png";
+  static const homeFilled = "assets/icons/home fill.png";
+  static const cart = "assets/icons/cart.png";
+  static const cartFilled = "assets/icons/cart fill.png";
   static const order = "assets/icons/Order.png";
   static const orderTwo = "assets/icons/order 2.png";
   static const chatTwo = "assets/icons/chat 2.png";
   static const chatThree = "assets/icons/Chat 3.png";
-  static const chat = "assets/icons/Chat_alt_light.png";
+  static const chat = "assets/icons/message.png";
   static const chatRound = "assets/icons/chat round.png";
-  static const chatFilled = "assets/icons/Chat_alt_fill.png";
+  static const chatFilled = "assets/icons/message fill.png";
   static const basket = "assets/icons/Basket_alt_3.png";
   static const basketFilled = "assets/icons/Basket_alt_3_fill.png";
   static const search = "assets/icons/search.png";
@@ -59,10 +63,12 @@ class AppImages {
   static const payment = "assets/icons/payment.png";
   static const policy = "assets/icons/policy.png";
   static const logout = "assets/icons/logout.png";
-  static const filter = "assets/icons/Filter_big.png";
+  static const filter = "assets/icons/filter.png";
+  static const filterBig = "assets/icons/Filter_big.png";
   static const call = "assets/icons/call.png";
   static const callRound = "assets/icons/call round.png";
   static const close = "assets/icons/close.png";
+  static const coPresent = "assets/icons/co present.png";
 
   static const starCard = "assets/icons/star card.png";
   static const starCardTwo = "assets/icons/star card 2.png";

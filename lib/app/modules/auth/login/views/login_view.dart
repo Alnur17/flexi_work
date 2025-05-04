@@ -1,3 +1,4 @@
+import 'package:flexi_work/app/modules/user/user_dashboard/views/user_dashboard_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -97,7 +98,7 @@ class LoginView extends GetView<LoginController> {
               CustomButton(
                 text: 'Login',
                 onPressed: () {
-                  //Get.to(() => const DashboardView());
+                  Get.to(()=> UserDashboardView());
                 },
                 gradientColors: AppColors.gradientColor,
               ),
@@ -119,17 +120,18 @@ class LoginView extends GetView<LoginController> {
               GoogleButton(
                 assetPath: AppImages.google,
                 label: 'Continue with Google',
-                onTap: () {},
+                onTap: () {
+                },
               ),
-              sh10,
-              sh10,
+              sh20,
               GoogleButton(
                 assetPath: AppImages.apple,
                 label: 'Continue with Apple',
-                onTap: () {},
+                onTap: () {
+
+                },
               ),
-              sh10,
-              sh10,
+              sh20,
               GoogleButton(
                 assetPath: AppImages.facebook,
                 label: 'Continue with Facebook',
