@@ -8,6 +8,12 @@ abstract class Routes {
   static const SIGNUP = _Paths.SIGNUP;
   static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
   static const USER_DASHBOARD = _Paths.USER_DASHBOARD;
+  static const PRODUCT_DETAILS = _Paths.PRODUCT_DETAILS;
+  static const CART = _Paths.CART;
+  static const STORE_PROFILE = _Paths.STORE_PROFILE;
+  static const MY_SEARCH = _Paths.MY_SEARCH;
+  static const PROFILE = _Paths.PROFILE;
+  static const CHAT = _Paths.CHAT;
 }
 
 abstract class _Paths {
@@ -17,4 +23,10 @@ abstract class _Paths {
   static const SIGNUP = '/signup';
   static const FORGOT_PASSWORD = '/forgot-password';
   static const USER_DASHBOARD = '/user-dashboard';
+  static const PRODUCT_DETAILS = '/product-details';
+  static const CART = '/cart';
+  static const STORE_PROFILE = '/store-profile';
+  static const MY_SEARCH = '/my-search';
+  static const PROFILE = '/profile';
+  static const CHAT = '/chat';
 }

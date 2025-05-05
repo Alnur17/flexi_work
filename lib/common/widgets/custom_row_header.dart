@@ -7,10 +7,11 @@ class CustomRowHeader extends StatelessWidget {
     super.key,
     required this.title,
     required this.subtitle,
-    required this.onTap,
+    required this.onTap, this.titleStyle,
   });
 
   final String title;
+  final TextStyle? titleStyle;
   final Widget subtitle;
   final VoidCallback onTap;
 
@@ -21,7 +22,7 @@ class CustomRowHeader extends StatelessWidget {
       children: [
         Text(
           title,
-          style: h4.copyWith(fontWeight: FontWeight.bold),
+          style: titleStyle ?? h4.copyWith(fontWeight: FontWeight.bold),
         ),
         GestureDetector(
           onTap: onTap,

@@ -6,8 +6,20 @@ import '../modules/auth/login/bindings/login_binding.dart';
 import '../modules/auth/login/views/login_view.dart';
 import '../modules/auth/signup/bindings/signup_binding.dart';
 import '../modules/auth/signup/views/signup_view.dart';
+import '../modules/user/cart/bindings/cart_binding.dart';
+import '../modules/user/cart/views/cart_view.dart';
+import '../modules/user/chat/bindings/chat_binding.dart';
+import '../modules/user/chat/views/chat_view.dart';
 import '../modules/user/home/bindings/home_binding.dart';
 import '../modules/user/home/views/home_view.dart';
+import '../modules/user/my_search/bindings/my_search_binding.dart';
+import '../modules/user/my_search/views/my_search_view.dart';
+import '../modules/user/product_details/bindings/product_details_binding.dart';
+import '../modules/user/product_details/views/product_details_view.dart';
+import '../modules/user/profile/bindings/profile_binding.dart';
+import '../modules/user/profile/views/profile_view.dart';
+import '../modules/user/store_profile/bindings/store_profile_binding.dart';
+import '../modules/user/store_profile/views/store_profile_view.dart';
 import '../modules/user/user_dashboard/bindings/user_dashboard_binding.dart';
 import '../modules/user/user_dashboard/views/user_dashboard_view.dart';
 
@@ -43,6 +55,36 @@ class AppPages {
       name: _Paths.USER_DASHBOARD,
       page: () => UserDashboardView(),
       binding: UserDashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUCT_DETAILS,
+      page: () => const ProductDetailsView(),
+      binding: ProductDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CART,
+      page: () => const CartView(),
+      binding: CartBinding(),
+    ),
+    GetPage(
+      name: _Paths.STORE_PROFILE,
+      page: () => const StoreProfileView(),
+      binding: StoreProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_SEARCH,
+      page: () => const MySearchView(),
+      binding: MySearchBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => const ProfileView(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHAT,
+      page: () => const ChatView(),
+      binding: ChatBinding(),
     ),
   ];
 }

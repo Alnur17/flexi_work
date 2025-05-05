@@ -12,6 +12,7 @@ class CustomButton extends StatelessWidget {
   final double? height;
   final double? width;
   final String? imageAssetPath;
+  final Color? imageAssetPathColor;
   final double? borderRadius;
   final List<Color>? gradientColors;
 
@@ -27,7 +28,7 @@ class CustomButton extends StatelessWidget {
     this.borderColor,
     this.imageAssetPath,
     this.borderRadius = 40,
-    this.gradientColors,
+    this.gradientColors, this.imageAssetPathColor,
   });
 
   @override
@@ -62,6 +63,7 @@ class CustomButton extends StatelessWidget {
                   child: Image.asset(
                     imageAssetPath!,
                     scale: 4,
+                    color: imageAssetPathColor,
                   ),
                 ),
               ],
