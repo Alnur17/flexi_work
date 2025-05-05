@@ -6,6 +6,7 @@ class AppColors {
   static const logoBgColor = Color(0xFFECF7FF);
   static const bottomNavbar = Color(0xffF9F9F9);
   static const textColorBlue = Color(0xff2C50ED);
+  static const storeColor = Color(0xff00A5C5);
   static const gradientColor = [Color(0xff00A5C5), Color(0xff0059A4)];
 
   //fixed color

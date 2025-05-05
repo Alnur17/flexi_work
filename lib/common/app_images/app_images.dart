@@ -11,6 +11,7 @@ class AppImages {
   static const checkBoxFilled = "assets/icons/checkbox filled.png";
   static const eyeClose = "assets/icons/eye close.png";
   static const mail = "assets/icons/mail.png";
+  static const download = "assets/icons/download.png";
   static const person = "assets/icons/User_light.png";
   static const profile = "assets/icons/profile.png";
   static const profileFilled = "assets/icons/profile fill.png";
@@ -18,19 +19,21 @@ class AppImages {
   static const home = "assets/icons/home.png";
   static const homeFilled = "assets/icons/home fill.png";
   static const cart = "assets/icons/cart.png";
+  static const cartSmall = "assets/icons/cart small.png";
   static const cartFilled = "assets/icons/cart fill.png";
   static const order = "assets/icons/Order.png";
+  static const orderCircle = "assets/icons/order circle.png";
   static const orderTwo = "assets/icons/order 2.png";
   static const chatTwo = "assets/icons/chat 2.png";
   static const chatThree = "assets/icons/Chat 3.png";
   static const chat = "assets/icons/message.png";
   static const chatRound = "assets/icons/chat round.png";
-  static const chatFilled = "assets/icons/message fill.png";
+  static const chatFilled = "assets/icons/chat filled.png";
   static const basket = "assets/icons/Basket_alt_3.png";
   static const basketFilled = "assets/icons/Basket_alt_3_fill.png";
   static const search = "assets/icons/search.png";
   static const searchNav = "assets/icons/Search nav.png";
-  static const language = "assets/icons/world.png";
+  static const language = "assets/icons/language.png";
   static const languageTwo = "assets/icons/language 2.png";
   static const back = "assets/icons/back.png";
   static const facebook = "assets/icons/facebook.png";
@@ -68,7 +71,9 @@ class AppImages {
   static const call = "assets/icons/call.png";
   static const callRound = "assets/icons/call round.png";
   static const close = "assets/icons/close.png";
+  static const alert = "assets/icons/alert.png";
   static const coPresent = "assets/icons/co present.png";
+  static const babyDress = "assets/icons/baby dress.png";
 
   static const starCard = "assets/icons/star card.png";
   static const starCardTwo = "assets/icons/star card 2.png";

@@ -1,3 +1,6 @@
+import 'package:flexi_work/app/modules/user/cart/views/cart_view.dart';
+import 'package:flexi_work/app/modules/user/chat/views/chat_view.dart';
+import 'package:flexi_work/app/modules/user/profile/views/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -28,9 +31,9 @@ class UserDashboardView extends GetView<UserDashboardController> {
                     index: userDashboardController.selectedIndex.value,
                     children: [
                       HomeView(),
-                      Container(color: Colors.red),
-                      Container(color: Colors.green),
-                      Container(color: Colors.blue),
+                      CartView(),
+                      ChatView(),
+                      ProfileView(),
                     ],
                   );
                 }),
@@ -106,7 +109,7 @@ class UserDashboardView extends GetView<UserDashboardController> {
                                 width: 24,
                                 height: 24,
                                 child: Image.asset(
-                                  AppImages.chat,
+                                  AppImages.chatFilled,
                                 ),
                               )
                             : SizedBox(
