@@ -3,6 +3,7 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
+
   static const HOME = _Paths.HOME;
   static const LOGIN = _Paths.LOGIN;
   static const SIGNUP = _Paths.SIGNUP;
@@ -17,10 +18,20 @@ abstract class Routes {
   static const TASKER_PROFILE = _Paths.TASKER_PROFILE;
   static const PAYMENT = _Paths.PAYMENT;
   static const ORDER_DETAILS = _Paths.ORDER_DETAILS;
+  static const VENDOR_DASHBOARD = _Paths.VENDOR_DASHBOARD;
+  static const VENDOR_HOME = _Paths.VENDOR_HOME;
+  static const SERVICE_PROVIDER_HOME = _Paths.SERVICE_PROVIDER_HOME;
+  static const SERVICE_PROVIDER_DASHBOARD = _Paths.SERVICE_PROVIDER_DASHBOARD;
+  static const VENDOR_PRODUCTS = _Paths.VENDOR_PRODUCTS;
+  static const VENDOR_EARNINGS = _Paths.VENDOR_EARNINGS;
+  static const VENDOR_ORDERS = _Paths.VENDOR_ORDERS;
+  static const VENDOR_PROFILE = _Paths.VENDOR_PROFILE;
+  static const VENDOR_CHAT = _Paths.VENDOR_CHAT;
 }
 
 abstract class _Paths {
   _Paths._();
+
   static const HOME = '/home';
   static const LOGIN = '/login';
   static const SIGNUP = '/signup';
@@ -35,4 +46,13 @@ abstract class _Paths {
   static const TASKER_PROFILE = '/tasker-profile';
   static const PAYMENT = '/payment';
   static const ORDER_DETAILS = '/order-details';
+  static const VENDOR_DASHBOARD = '/vendor-dashboard';
+  static const VENDOR_HOME = '/vendor-home';
+  static const SERVICE_PROVIDER_HOME = '/service-provider-home';
+  static const SERVICE_PROVIDER_DASHBOARD = '/service-provider-dashboard';
+  static const VENDOR_PRODUCTS = '/vendor-products';
+  static const VENDOR_EARNINGS = '/vendor-earnings';
+  static const VENDOR_ORDERS = '/vendor-orders';
+  static const VENDOR_PROFILE = '/vendor-profile';
+  static const VENDOR_CHAT = '/vendor-chat';
 }

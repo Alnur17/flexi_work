@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:flexi_work/app/modules/service_provider/service_provider_dashboard/views/service_provider_dashboard_view.dart';
+import 'package:flexi_work/app/modules/user/user_dashboard/views/user_dashboard_view.dart';
+import 'package:flexi_work/app/modules/vendor/vendor_dashboard/views/vendor_dashboard_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -11,11 +14,14 @@ import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
 import '../../login/views/login_view.dart';
+import '../controllers/signup_controller.dart';
 
 class VerifyYourEmailView extends GetView {
   const VerifyYourEmailView({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final SignupController signupController = Get.find<SignupController>();
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       appBar: AppBar(
@@ -83,7 +89,29 @@ class VerifyYourEmailView extends GetView {
             CustomButton(
               text: 'Verify',
               onPressed: () {
-                Get.offAll(() => const LoginView());
+                //if (isOtpValid) {
+                // Get selected role from SignupController
+                String userRole = signupController.selectedRole.value;
+
+                // Navigate to the appropriate dashboard
+                switch (userRole) {
+                  case 'user':
+                    Get.offAll(() => UserDashboardView());
+                    break;
+                  case 'vendor':
+                    Get.offAll(() => VendorDashboardView());
+                    break;
+                  case 'service_provider':
+                    Get.offAll(() => ServiceProviderDashboardView());
+                    break;
+                  default:
+                    Get.offAll(() => const LoginView());
+                    break;
+                }
+                // } else {
+                // // Show error if OTP is invalid
+                // Get.snackbar('Error', 'Invalid OTP. Please try again.');
+                // }
               },
               gradientColors: AppColors.gradientColor,
             ),

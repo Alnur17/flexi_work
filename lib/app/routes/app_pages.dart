@@ -6,6 +6,10 @@ import '../modules/auth/login/bindings/login_binding.dart';
 import '../modules/auth/login/views/login_view.dart';
 import '../modules/auth/signup/bindings/signup_binding.dart';
 import '../modules/auth/signup/views/signup_view.dart';
+import '../modules/service_provider/service_provider_dashboard/bindings/service_provider_dashboard_binding.dart';
+import '../modules/service_provider/service_provider_dashboard/views/service_provider_dashboard_view.dart';
+import '../modules/service_provider/service_provider_home/bindings/service_provider_home_binding.dart';
+import '../modules/service_provider/service_provider_home/views/service_provider_home_view.dart';
 import '../modules/user/cart/bindings/cart_binding.dart';
 import '../modules/user/cart/views/cart_view.dart';
 import '../modules/user/chat/bindings/chat_binding.dart';
@@ -28,13 +32,27 @@ import '../modules/user/tasker_profile/bindings/tasker_profile_binding.dart';
 import '../modules/user/tasker_profile/views/tasker_profile_view.dart';
 import '../modules/user/user_dashboard/bindings/user_dashboard_binding.dart';
 import '../modules/user/user_dashboard/views/user_dashboard_view.dart';
+import '../modules/vendor/vendor_chat/bindings/vendor_chat_binding.dart';
+import '../modules/vendor/vendor_chat/views/vendor_chat_view.dart';
+import '../modules/vendor/vendor_dashboard/bindings/vendor_dashboard_binding.dart';
+import '../modules/vendor/vendor_dashboard/views/vendor_dashboard_view.dart';
+import '../modules/vendor/vendor_earnings/bindings/vendor_earnings_binding.dart';
+import '../modules/vendor/vendor_earnings/views/vendor_earnings_view.dart';
+import '../modules/vendor/vendor_home/bindings/vendor_home_binding.dart';
+import '../modules/vendor/vendor_home/views/vendor_home_view.dart';
+import '../modules/vendor/vendor_orders/bindings/vendor_orders_binding.dart';
+import '../modules/vendor/vendor_orders/views/vendor_orders_view.dart';
+import '../modules/vendor/vendor_products/bindings/vendor_products_binding.dart';
+import '../modules/vendor/vendor_products/views/vendor_products_view.dart';
+import '../modules/vendor/vendor_profile/bindings/vendor_profile_binding.dart';
+import '../modules/vendor/vendor_profile/views/vendor_profile_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.VENDOR_DASHBOARD;
 
   static final routes = [
     GetPage(
@@ -106,6 +124,51 @@ class AppPages {
       name: _Paths.ORDER_DETAILS,
       page: () => const OrderDetailsView(),
       binding: OrderDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.VENDOR_DASHBOARD,
+      page: () => VendorDashboardView(),
+      binding: VendorDashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.VENDOR_HOME,
+      page: () => const VendorHomeView(),
+      binding: VendorHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICE_PROVIDER_HOME,
+      page: () => const ServiceProviderHomeView(),
+      binding: ServiceProviderHomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICE_PROVIDER_DASHBOARD,
+      page: () => ServiceProviderDashboardView(),
+      binding: ServiceProviderDashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.VENDOR_PRODUCTS,
+      page: () => const VendorProductsView(),
+      binding: VendorProductsBinding(),
+    ),
+    GetPage(
+      name: _Paths.VENDOR_EARNINGS,
+      page: () => const VendorEarningsView(),
+      binding: VendorEarningsBinding(),
+    ),
+    GetPage(
+      name: _Paths.VENDOR_ORDERS,
+      page: () => const VendorOrdersView(),
+      binding: VendorOrdersBinding(),
+    ),
+    GetPage(
+      name: _Paths.VENDOR_PROFILE,
+      page: () => const VendorProfileView(),
+      binding: VendorProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.VENDOR_CHAT,
+      page: () => const VendorChatView(),
+      binding: VendorChatBinding(),
     ),
   ];
 }

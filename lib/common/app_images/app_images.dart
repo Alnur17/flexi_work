@@ -18,10 +18,15 @@ class AppImages {
   static const personFilled = "assets/icons/User_fill.png";
   static const home = "assets/icons/home.png";
   static const homeFilled = "assets/icons/home fill.png";
+  static const earning = "assets/icons/earnings.png";
+  static const product = "assets/icons/products.png";
+  static const productFilled = "assets/icons/product fill.png";
+  static const earningFilled = "assets/icons/earning fill.png";
   static const cart = "assets/icons/cart.png";
   static const cartSmall = "assets/icons/cart small.png";
   static const cartFilled = "assets/icons/cart fill.png";
   static const order = "assets/icons/Order.png";
+  static const orderFilled = "assets/icons/order fill.png";
   static const orderCircle = "assets/icons/order circle.png";
   static const orderTwo = "assets/icons/order 2.png";
   static const chatTwo = "assets/icons/chat 2.png";
