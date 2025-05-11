@@ -1,40 +1,36 @@
-import 'package:flexi_work/app/modules/vendor/vendor_orders/views/vendor_order_details_view.dart';
+import 'package:flexi_work/app/modules/service_provider/service_provider_earnings/views/service_provider_earnings_details_view.dart';
+import 'package:flexi_work/app/modules/service_provider/service_provider_earnings/views/service_provider_withdraw_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../../common/app_color/app_colors.dart';
-import '../../../../../common/app_images/app_images.dart';
 import '../../../../../common/app_text_style/styles.dart';
-import '../../../../../common/helper/custom_dropdown.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
-import '../../../../../common/widgets/search_filed.dart';
+import '../../../../../common/widgets/custom_button.dart';
 
-
-class VendorOrdersView extends StatefulWidget {
-  const VendorOrdersView({super.key});
+class ServiceProviderEarningsView
+    extends StatefulWidget {
+  const ServiceProviderEarningsView({super.key});
 
   @override
-  State<VendorOrdersView> createState() => _VendorOrdersViewState();
+  State<ServiceProviderEarningsView> createState() => _ServiceProviderEarningsViewState();
 }
 
-class _VendorOrdersViewState extends State<VendorOrdersView> {
-
-  var selectedValue = 'Pending'.obs;
-
+class _ServiceProviderEarningsViewState extends State<ServiceProviderEarningsView> {
   final List<Map<String, String?>> dummyData = [
     {
-      'orderId': '01',
-      'customerName': 'Robert Fox',
-      'productName': 'Nike Air Force 1',
-      'quantity': '2',
+      'id': '01',
+      'fullName': 'Robert Fox',
+      'accNumber': '(516) 831-1111',
+      'date': '05-24-2025',
       'amount': '\$200',
     },
     {
-      'orderId': '02',
-      'customerName': 'Jane Doe',
-      'productName': 'Nike Air Force 3',
-      'quantity': '1',
+      'id': '02',
+      'fullName': 'Jane Doe',
+      'accNumber': '(516) 831-2222',
+      'date': '05-23-2025',
       'amount': '\$400',
     },
   ];
@@ -47,7 +43,7 @@ class _VendorOrdersViewState extends State<VendorOrdersView> {
         backgroundColor: AppColors.mainColor,
         scrolledUnderElevation: 0,
         title: Text(
-          'Orders',
+          'Earning',
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -55,42 +51,51 @@ class _VendorOrdersViewState extends State<VendorOrdersView> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SearchFiled(
-              onChanged: (value) {},
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                gradient: LinearGradient(colors: AppColors.gradientColor),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Your Balance',
+                    style: h4.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.white,
+                    ),
+                  ),
+                  sh5,
+                  Text(
+                    '\$1000',
+                    style: h1.copyWith(color: AppColors.white),
+                  ),
+                  sh24,
+                  CustomButton(
+                    text: 'Withdraw',
+                    onPressed: () {
+                      Get.to(() => ServiceProviderWithdrawView());
+                    },
+                    gradientColors: AppColors.gradientColor,
+                    textStyle: h3.copyWith(
+                        fontWeight: FontWeight.w500, color: AppColors.white),
+                  ),
+                ],
+              ),
             ),
-            sh20,
-            Row(
-              children: [
-                Obx(
-                      () {
-                    return CustomDropdown(
-                      width: 120,
-                      value: selectedValue.value,
-                      items: [
-                        DropdownMenuItem(
-                          value: 'Pending',
-                          child: Text('Pending'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'Complete',
-                          child: Text('Complete'),
-                        ),
-                      ],
-                      onChanged: (value) {
-                        selectedValue.value = value!;
-                      },
-                    );
-                  },
-                ),
-                Spacer(),
-                Image.asset(AppImages.eyeCircle,scale: 4,),
-                sw12,
-                Image.asset(AppImages.deleteCircle,scale: 4,)
-              ],
+            sh16,
+            Text(
+              'Recent Transactions',
+              style: h3.copyWith(
+                fontWeight: FontWeight.w500,
+                color: AppColors.black,
+              ),
             ),
-            sh20,
+            sh16,
             Container(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
               decoration: BoxDecoration(
@@ -104,25 +109,25 @@ class _VendorOrdersViewState extends State<VendorOrdersView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Order ID',
+                    '#Sl',
                     style: h6.copyWith(
                       color: AppColors.white,
                     ),
                   ),
                   Text(
-                    'Customer',
+                    'Full Name',
                     style: h6.copyWith(
                       color: AppColors.white,
                     ),
                   ),
                   Text(
-                    'Product Name',
+                    'Acc Number',
                     style: h6.copyWith(
                       color: AppColors.white,
                     ),
                   ),
                   Text(
-                    'Quantity',
+                    'Date',
                     style: h6.copyWith(
                       color: AppColors.white,
                     ),
@@ -151,13 +156,13 @@ class _VendorOrdersViewState extends State<VendorOrdersView> {
                   itemBuilder: (context, index) {
                     final data = dummyData[index];
                     return ListTile(
-                      onTap: (){
-                        Get.to(()=> VendorOrderDetailsView());
+                      onTap: () {
+                        Get.to(() => ServiceProviderEarningsDetailsView());
                       },
                       contentPadding: EdgeInsets.zero,
                       leading: Text(
-                        data['orderId'] ?? 'N/A',
-                        style: h6.copyWith(
+                        data['id'] ?? 'N/A',
+                        style: h7.copyWith(
                           color: AppColors.black,
                         ),
                       ),
@@ -165,22 +170,26 @@ class _VendorOrdersViewState extends State<VendorOrdersView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            data['customerName'] ?? 'No Name',
-                            style: h6.copyWith(
+                            data['fullName'] ?? 'No Name',
+                            style: h7.copyWith(
                               color: AppColors.black,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            data['productName'] ?? 'No product',
-                            style: h6,
+                            data['accNumber'] ?? 'No account',
+                            style: h7.copyWith(
+                              color: AppColors.black,
+                            ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            data['quantity'] ?? '0',
-                            style: h6,
+                            data['date'] ?? 'No Date',
+                            style: h7.copyWith(
+                              color: AppColors.black,
+                            ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -188,7 +197,9 @@ class _VendorOrdersViewState extends State<VendorOrdersView> {
                       ),
                       trailing: Text(
                         data['amount'] ?? '\$0',
-                        style: h6,
+                        style: h7.copyWith(
+                          color: AppColors.black,
+                        ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

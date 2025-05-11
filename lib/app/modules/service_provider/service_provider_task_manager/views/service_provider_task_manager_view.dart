@@ -1,41 +1,51 @@
-import 'package:flexi_work/app/modules/vendor/vendor_orders/views/vendor_order_details_view.dart';
+import 'package:flexi_work/app/modules/service_provider/service_provider_task_manager/views/service_details_view.dart';
+import 'package:flexi_work/common/app_images/app_images.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../../common/app_color/app_colors.dart';
-import '../../../../../common/app_images/app_images.dart';
 import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/helper/custom_dropdown.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/search_filed.dart';
 
-
-class VendorOrdersView extends StatefulWidget {
-  const VendorOrdersView({super.key});
+class ServiceProviderTaskManagerView extends StatefulWidget {
+  const ServiceProviderTaskManagerView({super.key});
 
   @override
-  State<VendorOrdersView> createState() => _VendorOrdersViewState();
+  State<ServiceProviderTaskManagerView> createState() =>
+      _ServiceProviderTaskManagerViewState();
 }
 
-class _VendorOrdersViewState extends State<VendorOrdersView> {
-
+class _ServiceProviderTaskManagerViewState
+    extends State<ServiceProviderTaskManagerView> {
   var selectedValue = 'Pending'.obs;
 
   final List<Map<String, String?>> dummyData = [
     {
-      'orderId': '01',
       'customerName': 'Robert Fox',
-      'productName': 'Nike Air Force 1',
-      'quantity': '2',
+      'task': 'Moving Service',
+      'date': '25 Jan 2025',
+      'time': '2:00 PM',
+      'status': 'pending',
       'amount': '\$200',
     },
     {
-      'orderId': '02',
-      'customerName': 'Jane Doe',
-      'productName': 'Nike Air Force 3',
-      'quantity': '1',
-      'amount': '\$400',
+      'customerName': 'Jon',
+      'task': 'Moving Service',
+      'date': '22 Jan 2025',
+      'time': '5:00 PM',
+      'status': 'pending',
+      'amount': '\$300',
+    },
+    {
+      'customerName': 'Jane',
+      'task': 'Moving Service',
+      'date': '02 Jan 2025',
+      'time': '3:00 PM',
+      'status': 'Complete',
+      'amount': '\$350',
     },
   ];
 
@@ -47,9 +57,8 @@ class _VendorOrdersViewState extends State<VendorOrdersView> {
         backgroundColor: AppColors.mainColor,
         scrolledUnderElevation: 0,
         title: Text(
-          'Orders',
+          'Task Manager',
         ),
-        centerTitle: true,
         automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -64,7 +73,7 @@ class _VendorOrdersViewState extends State<VendorOrdersView> {
             Row(
               children: [
                 Obx(
-                      () {
+                  () {
                     return CustomDropdown(
                       width: 120,
                       value: selectedValue.value,
@@ -104,25 +113,31 @@ class _VendorOrdersViewState extends State<VendorOrdersView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Order ID',
-                    style: h6.copyWith(
-                      color: AppColors.white,
-                    ),
-                  ),
-                  Text(
                     'Customer',
                     style: h6.copyWith(
                       color: AppColors.white,
                     ),
                   ),
                   Text(
-                    'Product Name',
+                    'Task',
                     style: h6.copyWith(
                       color: AppColors.white,
                     ),
                   ),
                   Text(
-                    'Quantity',
+                    'Date',
+                    style: h6.copyWith(
+                      color: AppColors.white,
+                    ),
+                  ),
+                  Text(
+                    'Time',
+                    style: h6.copyWith(
+                      color: AppColors.white,
+                    ),
+                  ),
+                  Text(
+                    'Status',
                     style: h6.copyWith(
                       color: AppColors.white,
                     ),
@@ -151,46 +166,74 @@ class _VendorOrdersViewState extends State<VendorOrdersView> {
                   itemBuilder: (context, index) {
                     final data = dummyData[index];
                     return ListTile(
-                      onTap: (){
-                        Get.to(()=> VendorOrderDetailsView());
+                      onTap: () {
+                        Get.to(()=> ServiceDetailsView());
                       },
                       contentPadding: EdgeInsets.zero,
-                      leading: Text(
-                        data['orderId'] ?? 'N/A',
-                        style: h6.copyWith(
-                          color: AppColors.black,
-                        ),
-                      ),
                       title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            data['customerName'] ?? 'No Name',
-                            style: h6.copyWith(
-                              color: AppColors.black,
+                          Expanded(
+                            child: Text(
+                              data['customerName'] ?? 'N/A',
+                              style: h6.copyWith(
+                                color: AppColors.black,
+                              ),
+                              maxLines: 2,textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
-                          Text(
-                            data['productName'] ?? 'No product',
-                            style: h6,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          sw8,
+                          Expanded(
+                            child: Text(
+                              data['task'] ?? 'No Name',
+                              style: h6.copyWith(
+                                color: AppColors.black,
+                              ),
+                              maxLines: 2,textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                          Text(
-                            data['quantity'] ?? '0',
-                            style: h6,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          sw8,
+                          Expanded(
+                            child: Text(
+                              data['date'] ?? 'No product',
+                              style: h6,
+                              maxLines: 2,textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          sw8,
+                          Expanded(
+                            child: Text(
+                              data['time'] ?? '0',
+                              style: h6,
+                              maxLines: 1,textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          sw8,
+                          Expanded(
+                            child: Text(
+                              data['status'] ?? '0',
+                              style: h6,
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          //sw8,
+                          Expanded(
+                            child: Text(
+                              data['amount'] ?? '\$0',
+                              style: h6,
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ],
-                      ),
-                      trailing: Text(
-                        data['amount'] ?? '\$0',
-                        style: h6,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
                       ),
                     );
                   },

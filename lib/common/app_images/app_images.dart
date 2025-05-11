@@ -10,6 +10,7 @@ class AppImages {
   static const checkBoxCircle = "assets/icons/circle checkbox.png";
   static const checkBoxFilled = "assets/icons/checkbox filled.png";
   static const eyeClose = "assets/icons/eye close.png";
+  static const eyeCircle = "assets/icons/eye circle.png";
   static const mail = "assets/icons/mail.png";
   static const download = "assets/icons/download.png";
   static const person = "assets/icons/User_light.png";
@@ -47,6 +48,7 @@ class AppImages {
   static const bookmark = "assets/icons/bookmark-add.png";
   static const bookmarkSmall = "assets/icons/bookmark-small.png";
   static const delete = "assets/icons/delete.png";
+  static const deleteCircle = "assets/icons/delete circle.png";
   static const deleteTwo = "assets/icons/delete 2.png";
   static const edit = "assets/icons/Edit.png";
   static const editRound = "assets/icons/edit round.png";
@@ -60,12 +62,14 @@ class AppImages {
   static const favorite = "assets/icons/Favorite.png";
   static const share = "assets/icons/share.png";
   static const star = "assets/icons/stars.png";
+  static const lock = "assets/icons/lock.png";
   static const upload = "assets/icons/upload.png";
   static const send = "assets/icons/send.png";
   static const attachFile = "assets/icons/attach file.png";
   static const account = "assets/icons/account.png";
   static const aboutUs = "assets/icons/about us.png";
   static const helpCenter = "assets/icons/help center.png";
+  static const support = "assets/icons/support.png";
   static const myOrder = "assets/icons/my order.png";
   static const notification = "assets/icons/notification.png";
   static const payment = "assets/icons/payment.png";

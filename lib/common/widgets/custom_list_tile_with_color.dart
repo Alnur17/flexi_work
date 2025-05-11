@@ -50,6 +50,7 @@ class CustomListTileWithColor extends StatelessWidget {
                 Image.asset(
                   trailingIconPath!,
                   scale: 4,
+                  color: AppColors.black,
                 ),
             ],
           ),

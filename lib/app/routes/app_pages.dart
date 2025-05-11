@@ -6,10 +6,18 @@ import '../modules/auth/login/bindings/login_binding.dart';
 import '../modules/auth/login/views/login_view.dart';
 import '../modules/auth/signup/bindings/signup_binding.dart';
 import '../modules/auth/signup/views/signup_view.dart';
+import '../modules/service_provider/service_provider_chats/bindings/service_provider_chats_binding.dart';
+import '../modules/service_provider/service_provider_chats/views/service_provider_chats_view.dart';
 import '../modules/service_provider/service_provider_dashboard/bindings/service_provider_dashboard_binding.dart';
 import '../modules/service_provider/service_provider_dashboard/views/service_provider_dashboard_view.dart';
+import '../modules/service_provider/service_provider_earnings/bindings/service_provider_earnings_binding.dart';
+import '../modules/service_provider/service_provider_earnings/views/service_provider_earnings_view.dart';
 import '../modules/service_provider/service_provider_home/bindings/service_provider_home_binding.dart';
 import '../modules/service_provider/service_provider_home/views/service_provider_home_view.dart';
+import '../modules/service_provider/service_provider_profile/bindings/service_provider_profile_binding.dart';
+import '../modules/service_provider/service_provider_profile/views/service_provider_profile_view.dart';
+import '../modules/service_provider/service_provider_task_manager/bindings/service_provider_task_manager_binding.dart';
+import '../modules/service_provider/service_provider_task_manager/views/service_provider_task_manager_view.dart';
 import '../modules/user/cart/bindings/cart_binding.dart';
 import '../modules/user/cart/views/cart_view.dart';
 import '../modules/user/chat/bindings/chat_binding.dart';
@@ -52,7 +60,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.VENDOR_DASHBOARD;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -169,6 +177,26 @@ class AppPages {
       name: _Paths.VENDOR_CHAT,
       page: () => const VendorChatView(),
       binding: VendorChatBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICE_PROVIDER_PROFILE,
+      page: () => const ServiceProviderProfileView(),
+      binding: ServiceProviderProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICE_PROVIDER_TASK_MANAGER,
+      page: () => const ServiceProviderTaskManagerView(),
+      binding: ServiceProviderTaskManagerBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICE_PROVIDER_EARNINGS,
+      page: () => const ServiceProviderEarningsView(),
+      binding: ServiceProviderEarningsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICE_PROVIDER_CHATS,
+      page: () => const ServiceProviderChatsView(),
+      binding: ServiceProviderChatsBinding(),
     ),
   ];
 }

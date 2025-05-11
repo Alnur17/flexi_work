@@ -1,3 +1,6 @@
+import 'package:flexi_work/app/modules/service_provider/service_provider_earnings/views/service_provider_earnings_view.dart';
+import 'package:flexi_work/app/modules/service_provider/service_provider_profile/views/service_provider_profile_view.dart';
+import 'package:flexi_work/app/modules/service_provider/service_provider_task_manager/views/service_provider_task_manager_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -31,9 +34,9 @@ class ServiceProviderDashboardView
                         serviceProviderDashboardController.selectedIndex.value,
                     children: [
                       ServiceProviderHomeView(),
-                      Container(),
-                      Container(),
-                      Container(),
+                      ServiceProviderTaskManagerView(),
+                      ServiceProviderEarningsView(),
+                      ServiceProviderProfileView(),
                     ],
                   );
                 }),
@@ -51,6 +54,7 @@ class ServiceProviderDashboardView
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(color: AppColors.green)),
               child: GNav(
+
                 backgroundColor: AppColors.transparent,
                 activeColor: AppColors.textColorBlue,
                 textStyle: h3.copyWith(color: AppColors.white),

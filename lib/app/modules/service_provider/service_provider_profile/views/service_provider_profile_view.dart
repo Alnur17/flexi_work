@@ -1,8 +1,8 @@
-import 'package:flexi_work/app/modules/vendor/vendor_profile/views/vendor_about_us_view.dart';
-import 'package:flexi_work/app/modules/vendor/vendor_profile/views/vendor_edit_profile_view.dart';
-import 'package:flexi_work/app/modules/vendor/vendor_profile/views/vendor_policies_view.dart';
-import 'package:flexi_work/app/modules/vendor/vendor_profile/views/vendor_settings_view.dart';
-import 'package:flexi_work/app/modules/vendor/vendor_profile/views/vendor_support_view.dart';
+import 'package:flexi_work/app/modules/service_provider/service_provider_profile/views/service_provider_about_us_view.dart';
+import 'package:flexi_work/app/modules/service_provider/service_provider_profile/views/service_provider_edit_profile_view.dart';
+import 'package:flexi_work/app/modules/service_provider/service_provider_profile/views/service_provider_policies_view.dart';
+import 'package:flexi_work/app/modules/service_provider/service_provider_profile/views/service_provider_settings_view.dart';
+import 'package:flexi_work/app/modules/service_provider/service_provider_profile/views/service_provider_support_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -13,10 +13,11 @@ import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
 import '../../../../../common/widgets/custom_list_tile.dart';
-import '../controllers/vendor_profile_controller.dart';
+import '../controllers/service_provider_profile_controller.dart';
 
-class VendorProfileView extends GetView<VendorProfileController> {
-  const VendorProfileView({super.key});
+class ServiceProviderProfileView
+    extends GetView<ServiceProviderProfileController> {
+  const ServiceProviderProfileView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +46,7 @@ class VendorProfileView extends GetView<VendorProfileController> {
             ),
             sh5,
             Text(
-              'lukas.wagner@gmail.com',
+              'Plumber',
               style: h6.copyWith(
                 color: AppColors.black100,
               ),
@@ -53,7 +54,7 @@ class VendorProfileView extends GetView<VendorProfileController> {
             sh20,
             CustomListTile(
               onTap: () {
-                Get.to(()=> VendorEditProfileView());
+                Get.to(()=> ServiceProviderEditProfileView());
               },
               leadingImage: AppImages.account,
               title: 'Edit Profile',
@@ -62,30 +63,16 @@ class VendorProfileView extends GetView<VendorProfileController> {
             sh12,
             CustomListTile(
               onTap: () {
-                Get.to(()=> VendorSettingsView());
+                Get.to(()=> ServiceProviderSettingsView());
               },
               leadingImage: AppImages.myOrder,
               title: 'Settings',
               trailingImage: AppImages.arrowRightSmall,
             ),
             sh12,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Align(
-                alignment: AlignmentDirectional.bottomStart,
-                child: Text(
-                  'Support',
-                  style: h6.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.black100,
-                  ),
-                ),
-              ),
-            ),
-            sh8,
             CustomListTile(
               onTap: () {
-                 Get.to(()=> VendorSupportView());
+                Get.to(()=> ServiceProviderSupportView());
               },
               leadingImage: AppImages.support,
               title: 'Support',
@@ -94,7 +81,7 @@ class VendorProfileView extends GetView<VendorProfileController> {
             sh12,
             CustomListTile(
               onTap: () {
-                Get.to(()=> VendorPoliciesView());
+                Get.to(()=> ServiceProviderPoliciesView());
               },
               leadingImage: AppImages.policy,
               title: 'Policies',
@@ -103,7 +90,7 @@ class VendorProfileView extends GetView<VendorProfileController> {
             sh12,
             CustomListTile(
               onTap: () {
-                Get.to(()=> VendorAboutUsView());
+                Get.to(()=> ServiceProviderAboutUsView());
               },
               leadingImage: AppImages.aboutUs,
               title: 'About Us',

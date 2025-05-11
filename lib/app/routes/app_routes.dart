@@ -27,6 +27,11 @@ abstract class Routes {
   static const VENDOR_ORDERS = _Paths.VENDOR_ORDERS;
   static const VENDOR_PROFILE = _Paths.VENDOR_PROFILE;
   static const VENDOR_CHAT = _Paths.VENDOR_CHAT;
+  static const SERVICE_PROVIDER_PROFILE = _Paths.SERVICE_PROVIDER_PROFILE;
+  static const SERVICE_PROVIDER_TASK_MANAGER =
+      _Paths.SERVICE_PROVIDER_TASK_MANAGER;
+  static const SERVICE_PROVIDER_EARNINGS = _Paths.SERVICE_PROVIDER_EARNINGS;
+  static const SERVICE_PROVIDER_CHATS = _Paths.SERVICE_PROVIDER_CHATS;
 }
 
 abstract class _Paths {
@@ -55,4 +60,8 @@ abstract class _Paths {
   static const VENDOR_ORDERS = '/vendor-orders';
   static const VENDOR_PROFILE = '/vendor-profile';
   static const VENDOR_CHAT = '/vendor-chat';
+  static const SERVICE_PROVIDER_PROFILE = '/service-provider-profile';
+  static const SERVICE_PROVIDER_TASK_MANAGER = '/service-provider-task-manager';
+  static const SERVICE_PROVIDER_EARNINGS = '/service-provider-earnings';
+  static const SERVICE_PROVIDER_CHATS = '/service-provider-chats';
 }
