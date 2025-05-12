@@ -1,6 +1,8 @@
 import 'package:flexi_work/common/helper/upload_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart'; // Import image_picker
+import 'dart:io'; // For File handling
 
 import '../../../../../../common/app_color/app_colors.dart';
 import '../../../../../../common/app_text_style/styles.dart';
@@ -18,6 +20,24 @@ class SignupBodyWidget extends StatefulWidget {
 
 class _SignupBodyWidgetState extends State<SignupBodyWidget> {
   final SignupController signupController = Get.put(SignupController());
+  final ImagePicker _picker = ImagePicker();
+  File? _capturedImage;
+
+  Future<void> _takePicture() async {
+    try {
+      final XFile? image = await _picker.pickImage(
+        source: ImageSource.camera,
+        preferredCameraDevice: CameraDevice.front,
+      );
+      if (image != null) {
+        setState(() {
+          _capturedImage = File(image.path);
+        });
+      }
+    } catch (e) {
+      print("Error taking picture: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,59 +102,29 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Full Name',
-          style: h5,
-        ),
+        Text('Full Name', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Your name',
-        ),
+        CustomTextField(hintText: 'Your name'),
         sh12,
-        Text(
-          'Birth Date',
-          style: h5,
-        ),
+        Text('Birth Date', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Enter your birth date',
-        ),
+        CustomTextField(hintText: 'Enter your birth date'),
         sh12,
-        Text(
-          'Mobile Number',
-          style: h5,
-        ),
+        Text('Mobile Number', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Enter your mobile number',
-        ),
+        CustomTextField(hintText: 'Enter your mobile number'),
         sh12,
-        Text(
-          'Email',
-          style: h5,
-        ),
+        Text('Email', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Enter your email',
-        ),
+        CustomTextField(hintText: 'Enter your email'),
         sh12,
-        Text(
-          'Refer code',
-          style: h5,
-        ),
+        Text('Refer code', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Enter your password',
-        ),
+        CustomTextField(hintText: 'Enter your password'),
         sh12,
-        Text(
-          'Create a Password',
-          style: h5,
-        ),
+        Text('Create a Password', style: h5),
         sh8,
-        CustomTextField(
-          hintText: '*************',
-        ),
+        CustomTextField(hintText: '*************'),
       ],
     );
   }
@@ -143,69 +133,46 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Full Name',
-          style: h5,
-        ),
+        Text('Full Name', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Your name',
-        ),
+        CustomTextField(hintText: 'Your name'),
         sh12,
-        Text(
-          'Birth Date',
-          style: h5,
-        ),
+        Text('Birth Date', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Enter your birth date',
-        ),
+        CustomTextField(hintText: 'Enter your birth date'),
         sh12,
-        Text(
-          'Mobile Number',
-          style: h5,
-        ),
+        Text('Mobile Number', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Enter your mobile number',
-        ),
+        CustomTextField(hintText: 'Enter your mobile number'),
         sh12,
-        Text(
-          'Email',
-          style: h5,
-        ),
+        Text('Email', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Enter your email',
-        ),
+        CustomTextField(hintText: 'Enter your email'),
         sh12,
-        Text(
-          'Refer code',
-          style: h5,
-        ),
+        Text('Refer code', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Enter your password',
-        ),
+        CustomTextField(hintText: 'Enter your password'),
         sh12,
-        Text(
-          'Create a Password',
-          style: h5,
-        ),
+        Text('Create a Password', style: h5),
         sh8,
-        CustomTextField(
-          hintText: '*************',
-        ),
+        CustomTextField(hintText: '*************'),
         sh12,
-        Text(
-          'Upload Legal ID',
-          style: h5,
-        ),
+        Text('Upload Legal ID', style: h5),
         sh8,
         UploadWidget(
           onTap: () {},
           imagePath: AppImages.upload,
           label: 'Upload',
+          isFile: false, // Asset
+        ),
+        sh12,
+        Text('Take Image', style: h5),
+        sh8,
+        UploadWidget(
+          onTap: _takePicture,
+          imagePath: _capturedImage?.path ?? AppImages.upload,
+          label: 'Take Picture',
+          isFile: _capturedImage != null,
         ),
       ],
     );
@@ -215,80 +182,55 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Full Name',
-          style: h5,
-        ),
+        Text('Full Name', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Your name',
-        ),
+        CustomTextField(hintText: 'Your name'),
         sh12,
-        Text(
-          'Email',
-          style: h5,
-        ),
+        Text('Email', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Enter your email',
-        ),
+        CustomTextField(hintText: 'Enter your email'),
         sh12,
-        Text(
-          'Mobile Number',
-          style: h5,
-        ),
+        Text('Mobile Number', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Enter your mobile number',
-        ),
+        CustomTextField(hintText: 'Enter your mobile number'),
         sh12,
-        Text(
-          'Create a Password',
-          style: h5,
-        ),
+        Text('Create a Password', style: h5),
         sh8,
-        CustomTextField(
-          hintText: '*************',
-        ),
+        CustomTextField(hintText: '*************'),
         sh12,
-        Text(
-          'Birth Date',
-          style: h5,
-        ),
+        Text('Birth Date', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Enter your birth date',
-        ),
+        CustomTextField(hintText: 'Enter your birth date'),
         sh12,
-        Text(
-          'Job Title',
-          style: h5,
-        ),
+        Text('Job Title', style: h5),
         sh8,
-        CustomTextField(
-          hintText: 'Enter your Job Title',
-        ),
+        CustomTextField(hintText: 'Enter your Job Title'),
         sh12,
-        Text(
-          'Upload Legal ID',
-          style: h5,
-        ),
+        Text('Upload Legal ID', style: h5),
         sh8,
         UploadWidget(
           onTap: () {},
           imagePath: AppImages.upload,
           label: 'Upload ID',
+          isFile: false,
         ),
         sh12,
-        Text(
-          'Upload Legal ID',
-          style: h5,
-        ),
+        Text('Upload Legal ID', style: h5),
         sh8,
         UploadWidget(
           onTap: () {},
           imagePath: AppImages.upload,
           label: 'Upload Statement',
+          isFile: false,
+        ),
+        sh12,
+        Text('Take Image', style: h5),
+        sh8,
+        UploadWidget(
+          onTap: _takePicture,
+          imagePath: _capturedImage?.path ?? AppImages.upload,
+          label: 'Take Picture',
+          isFile: _capturedImage != null,
         ),
       ],
     );

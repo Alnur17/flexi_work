@@ -1,7 +1,9 @@
+import 'dart:io'; // Import for File
 import 'package:flutter/material.dart';
 
 import '../../../../../../common/app_text_style/styles.dart';
 import '../app_color/app_colors.dart';
+
 class UploadWidget extends StatelessWidget {
   final VoidCallback onTap;
   final String imagePath;
@@ -10,6 +12,7 @@ class UploadWidget extends StatelessWidget {
   final double width;
   final double iconSize;
   final TextStyle? labelStyle;
+  final bool isFile; // Indicates if imagePath is a file
 
   const UploadWidget({
     super.key,
@@ -20,26 +23,42 @@ class UploadWidget extends StatelessWidget {
     this.width = double.infinity,
     this.iconSize = 20,
     this.labelStyle,
+    this.isFile = false, // Default to false (asset)
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.grey,
-          style: BorderStyle.solid,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: AppColors.grey,
+            style: BorderStyle.solid,
+          ),
         ),
-      ),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Column(
+        child: isFile
+            ? ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+              child: Image.file(
+                        File(imagePath),
+                        fit: BoxFit.cover,
+                        height: height,
+                        width: width,
+                        errorBuilder: (context, error, stackTrace) => const Icon(
+              Icons.error,
+              color: Colors.red,
+              size: 20,
+                        ),
+                      ),
+            )
+            : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Container(
               height: iconSize,
               width: iconSize,
@@ -50,9 +69,14 @@ class UploadWidget extends StatelessWidget {
                 imagePath,
                 scale: 4,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => const Icon(
+                  Icons.error,
+                  color: Colors.red,
+                  size: 20,
+                ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               label,
               style: labelStyle ?? h5.copyWith(color: Colors.grey),
