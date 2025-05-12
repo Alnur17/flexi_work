@@ -32,6 +32,7 @@ abstract class Routes {
       _Paths.SERVICE_PROVIDER_TASK_MANAGER;
   static const SERVICE_PROVIDER_EARNINGS = _Paths.SERVICE_PROVIDER_EARNINGS;
   static const SERVICE_PROVIDER_CHATS = _Paths.SERVICE_PROVIDER_CHATS;
+  static const SERVICE_PROVIDER_MAP = _Paths.SERVICE_PROVIDER_MAP;
 }
 
 abstract class _Paths {
@@ -64,4 +65,5 @@ abstract class _Paths {
   static const SERVICE_PROVIDER_TASK_MANAGER = '/service-provider-task-manager';
   static const SERVICE_PROVIDER_EARNINGS = '/service-provider-earnings';
   static const SERVICE_PROVIDER_CHATS = '/service-provider-chats';
+  static const SERVICE_PROVIDER_MAP = '/service-provider-map';
 }

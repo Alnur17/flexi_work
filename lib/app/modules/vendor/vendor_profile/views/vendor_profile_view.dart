@@ -13,10 +13,12 @@ import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
 import '../../../../../common/widgets/custom_list_tile.dart';
+import '../../../auth/login/views/login_view.dart';
 import '../controllers/vendor_profile_controller.dart';
 
 class VendorProfileView extends GetView<VendorProfileController> {
   const VendorProfileView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +55,7 @@ class VendorProfileView extends GetView<VendorProfileController> {
             sh20,
             CustomListTile(
               onTap: () {
-                Get.to(()=> VendorEditProfileView());
+                Get.to(() => VendorEditProfileView());
               },
               leadingImage: AppImages.account,
               title: 'Edit Profile',
@@ -62,7 +64,7 @@ class VendorProfileView extends GetView<VendorProfileController> {
             sh12,
             CustomListTile(
               onTap: () {
-                Get.to(()=> VendorSettingsView());
+                Get.to(() => VendorSettingsView());
               },
               leadingImage: AppImages.myOrder,
               title: 'Settings',
@@ -85,7 +87,7 @@ class VendorProfileView extends GetView<VendorProfileController> {
             sh8,
             CustomListTile(
               onTap: () {
-                 Get.to(()=> VendorSupportView());
+                Get.to(() => VendorSupportView());
               },
               leadingImage: AppImages.support,
               title: 'Support',
@@ -94,7 +96,7 @@ class VendorProfileView extends GetView<VendorProfileController> {
             sh12,
             CustomListTile(
               onTap: () {
-                Get.to(()=> VendorPoliciesView());
+                Get.to(() => VendorPoliciesView());
               },
               leadingImage: AppImages.policy,
               title: 'Policies',
@@ -103,7 +105,7 @@ class VendorProfileView extends GetView<VendorProfileController> {
             sh12,
             CustomListTile(
               onTap: () {
-                Get.to(()=> VendorAboutUsView());
+                Get.to(() => VendorAboutUsView());
               },
               leadingImage: AppImages.aboutUs,
               title: 'About Us',
@@ -113,7 +115,9 @@ class VendorProfileView extends GetView<VendorProfileController> {
             Center(
               child: CustomButton(
                 text: 'Log Out',
-                onPressed: () {},
+                onPressed: () {
+                  Get.offAll(() => LoginView());
+                },
                 imageAssetPath: AppImages.logout,
                 width: 150,
                 textColor: AppColors.red,

@@ -1,3 +1,4 @@
+import 'package:flexi_work/app/modules/service_provider/service_provider_map/views/service_provider_map_view.dart';
 import 'package:flexi_work/common/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -105,6 +106,26 @@ class ServiceDetailsView extends GetView {
                   ],
                 ),
               ],
+            ),
+            sh12,
+            GestureDetector(
+              onTap: () {
+                Get.to(()=> ServiceProviderMapView());
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'See location on map',
+                    style: h6.copyWith(color: AppColors.green),
+                  ),
+                  Image.asset(
+                    AppImages.arrowRightNormal,
+                    scale: 4,
+                    color: AppColors.green,
+                  ),
+                ],
+              ),
             ),
             sh24,
             // Transaction Details Section

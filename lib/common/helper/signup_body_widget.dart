@@ -20,6 +20,8 @@ class SignupBodyWidget extends StatefulWidget {
 
 class _SignupBodyWidgetState extends State<SignupBodyWidget> {
   final SignupController signupController = Get.put(SignupController());
+
+  String? _selectedJobTitle;
   final ImagePicker _picker = ImagePicker();
   File? _capturedImage;
 
@@ -179,6 +181,12 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
   }
 
   Widget _buildServiceProviderInterface() {
+    final List<String> jobTitles = [
+      'Plumber',
+      'Carpenter',
+      'Electrician',
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -204,7 +212,38 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
         sh12,
         Text('Job Title', style: h5),
         sh8,
-        CustomTextField(hintText: 'Enter your Job Title'),
+        DropdownButtonFormField<String>(
+          dropdownColor: AppColors.white,
+          borderRadius: BorderRadius.circular(16),
+          //padding: EdgeInsets.symmetric(horizontal: 20),
+          value: _selectedJobTitle,
+          hint: Text(
+            'Select your Job Title',
+            style: h5.copyWith(
+              color: AppColors.grey,
+            ),
+          ),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: AppColors.borderColor),
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          ),
+          items: jobTitles.map((String title) {
+            return DropdownMenuItem<String>(
+              value: title,
+              child: Text(
+                title,
+              ),
+            );
+          }).toList(),
+          onChanged: (String? newValue) {
+            setState(() {
+              _selectedJobTitle = newValue;
+            });
+          },
+        ),
         sh12,
         Text('Upload Legal ID', style: h5),
         sh8,
@@ -215,7 +254,7 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
           isFile: false,
         ),
         sh12,
-        Text('Upload Legal ID', style: h5),
+        Text('Bank Statement', style: h5),
         sh8,
         UploadWidget(
           onTap: () {},

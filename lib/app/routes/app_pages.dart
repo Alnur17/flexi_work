@@ -14,6 +14,8 @@ import '../modules/service_provider/service_provider_earnings/bindings/service_p
 import '../modules/service_provider/service_provider_earnings/views/service_provider_earnings_view.dart';
 import '../modules/service_provider/service_provider_home/bindings/service_provider_home_binding.dart';
 import '../modules/service_provider/service_provider_home/views/service_provider_home_view.dart';
+import '../modules/service_provider/service_provider_map/bindings/service_provider_map_binding.dart';
+import '../modules/service_provider/service_provider_map/views/service_provider_map_view.dart';
 import '../modules/service_provider/service_provider_profile/bindings/service_provider_profile_binding.dart';
 import '../modules/service_provider/service_provider_profile/views/service_provider_profile_view.dart';
 import '../modules/service_provider/service_provider_task_manager/bindings/service_provider_task_manager_binding.dart';
@@ -197,6 +199,11 @@ class AppPages {
       name: _Paths.SERVICE_PROVIDER_CHATS,
       page: () => const ServiceProviderChatsView(),
       binding: ServiceProviderChatsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICE_PROVIDER_MAP,
+      page: () => const ServiceProviderMapView(),
+      binding: ServiceProviderMapBinding(),
     ),
   ];
 }

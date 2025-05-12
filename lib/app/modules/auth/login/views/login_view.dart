@@ -9,7 +9,6 @@ import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
 import '../../../../../common/widgets/custom_textfield.dart';
-import '../../../../../common/widgets/google_button.dart';
 import '../../forgot_password/views/forgot_password_view.dart';
 import '../../signup/views/signup_view.dart';
 import '../controllers/login_controller.dart';
@@ -116,27 +115,27 @@ class LoginView extends GetView<LoginController> {
                   const Expanded(child: Divider()),
                 ],
               ),
-              sh10,
-              GoogleButton(
-                assetPath: AppImages.google,
-                label: 'Continue with Google',
-                onTap: () {
-                },
-              ),
-              sh20,
-              GoogleButton(
-                assetPath: AppImages.apple,
-                label: 'Continue with Apple',
-                onTap: () {
-
-                },
-              ),
-              sh20,
-              GoogleButton(
-                assetPath: AppImages.facebook,
-                label: 'Continue with Facebook',
-                onTap: () {},
-              ),
+              // sh10,
+              // GoogleButton(
+              //   assetPath: AppImages.google,
+              //   label: 'Continue with Google',
+              //   onTap: () {
+              //   },
+              // ),
+              // sh20,
+              // GoogleButton(
+              //   assetPath: AppImages.apple,
+              //   label: 'Continue with Apple',
+              //   onTap: () {
+              //
+              //   },
+              // ),
+              // sh20,
+              // GoogleButton(
+              //   assetPath: AppImages.facebook,
+              //   label: 'Continue with Facebook',
+              //   onTap: () {},
+              // ),
               sh10,
               GestureDetector(
                 onTap: () {

@@ -44,6 +44,8 @@ dependencies:
   readmore: ^3.0.0
   fl_chart: ^0.68.0
   image_picker: ^1.1.2
+  google_maps_flutter: ^2.10.1
+  flutter_polyline_points: ^2.1.0
 
 dev_dependencies:
   flutter_test:

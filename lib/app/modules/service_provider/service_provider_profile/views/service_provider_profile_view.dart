@@ -1,3 +1,4 @@
+import 'package:flexi_work/app/modules/auth/login/views/login_view.dart';
 import 'package:flexi_work/app/modules/service_provider/service_provider_profile/views/service_provider_about_us_view.dart';
 import 'package:flexi_work/app/modules/service_provider/service_provider_profile/views/service_provider_edit_profile_view.dart';
 import 'package:flexi_work/app/modules/service_provider/service_provider_profile/views/service_provider_policies_view.dart';
@@ -100,7 +101,9 @@ class ServiceProviderProfileView
             Center(
               child: CustomButton(
                 text: 'Log Out',
-                onPressed: () {},
+                onPressed: () {
+                  Get.offAll(()=> LoginView());
+                },
                 imageAssetPath: AppImages.logout,
                 width: 150,
                 textColor: AppColors.red,
