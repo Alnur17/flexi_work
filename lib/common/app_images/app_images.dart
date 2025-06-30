@@ -70,6 +70,7 @@ class AppImages {
   static const aboutUs = "assets/icons/about us.png";
   static const helpCenter = "assets/icons/help center.png";
   static const support = "assets/icons/support.png";
+  static const supportSmall = "assets/icons/support small.png";
   static const myOrder = "assets/icons/my order.png";
   static const notification = "assets/icons/notification.png";
   static const payment = "assets/icons/payment.png";

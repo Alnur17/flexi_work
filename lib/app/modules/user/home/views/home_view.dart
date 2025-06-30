@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flexi_work/app/modules/user/home/views/support_view.dart';
 import 'package:flexi_work/app/modules/user/tasker_profile/views/tasker_profile_view.dart';
 import 'package:flexi_work/common/app_color/app_colors.dart';
 import 'package:flexi_work/common/app_images/app_images.dart';
@@ -91,6 +92,16 @@ class _HomeViewState extends State<HomeView> {
         centerTitle: true,
         automaticallyImplyLeading: false,
         actions: [
+          GestureDetector(
+            onTap: () {
+              Get.to(()=> SupportView());
+            },
+            child: Image.asset(
+              AppImages.supportSmall,
+              scale: 4,
+            ),
+          ),
+          sw12,
           GestureDetector(
             onTap: () {},
             child: Container(
@@ -400,7 +411,7 @@ class _HomeViewState extends State<HomeView> {
                               hourlyRate: worker['hourlyRate'],
                               imageUrl: worker['imageUrl'],
                               onTap: () {
-                                Get.to(()=> TaskerProfileView());
+                                Get.to(() => TaskerProfileView());
                               },
                             );
                           },

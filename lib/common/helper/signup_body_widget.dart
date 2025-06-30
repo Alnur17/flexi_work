@@ -160,6 +160,15 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
           isFile: false, // Asset
         ),
         sh12,
+        Text('Bank Statement', style: h5),
+        sh8,
+        UploadWidget(
+          onTap: () {},
+          imagePath: AppImages.upload,
+          label: 'Upload Statement',
+          isFile: false,
+        ),
+        sh12,
         Text('Face Verification', style: h5),
         sh8,
         UploadWidget(
