@@ -105,7 +105,7 @@ class VerifyYourEmailView extends GetView {
                     Get.offAll(() => ServiceProviderDashboardView());
                     break;
                   default:
-                    Get.offAll(() => const LoginView());
+                    Get.offAll(() =>  LoginView());
                     break;
                 }
                 // } else {

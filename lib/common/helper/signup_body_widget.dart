@@ -2,6 +2,7 @@ import 'package:flexi_work/common/helper/upload_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart'; // Import image_picker
+import 'package:intl/intl.dart';
 import 'dart:io'; // For File handling
 
 import '../../../../../../common/app_color/app_colors.dart';
@@ -58,7 +59,7 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
           () {
             switch (signupController.selectedRole.value) {
               case 'user':
-                return _buildUserInterface();
+                return _buildUserInterface(context: context);
               case 'vendor':
                 return _buildVendorInterface();
               case 'service_provider':
@@ -81,8 +82,7 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
           return GestureDetector(
             onTap: () => signupController.selectRole(value),
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8.0),
               decoration: BoxDecoration(
                 color: isSelected ? AppColors.orange : AppColors.silver,
                 borderRadius: BorderRadius.circular(20.0),
@@ -100,31 +100,58 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
     );
   }
 
-  Widget _buildUserInterface() {
-    return Column(
+  Widget _buildUserInterface({required BuildContext context}) {
+    return Obx(()=>Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Full Name', style: h5),
         sh8,
-        CustomTextField(hintText: 'Your name'),
+        CustomTextField(
+          controller: signupController.fullNameController.value,
+          hintText: 'Your name',
+        ),
         sh12,
         Text('Birth Date', style: h5),
         sh8,
-        CustomTextField(hintText: 'Enter your birth date'),
+        CustomTextField(
+          controller: signupController.birthDateController.value,
+          hintText: 'Enter your birth date',
+          onTap: () async {
+            showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2000),
+              lastDate: DateTime(2101),
+            ).then((value) {
+              if(value != null) {
+                signupController.birthDateController.value.text = DateFormat("yyyy-MM-dd").format(value);
+              }
+            });
+          },
+        ),
         sh12,
         Text('Mobile Number', style: h5),
         sh8,
-        CustomTextField(hintText: 'Enter your mobile number'),
+        CustomTextField(
+          controller: signupController.mobileNumberController.value,
+          hintText: 'Enter your mobile number',
+        ),
         sh12,
         Text('Email', style: h5),
         sh8,
-        CustomTextField(hintText: 'Enter your email'),
+        CustomTextField(
+          controller: signupController.emailController.value,
+          hintText: 'Enter your email',
+        ),
         sh12,
         Text('Create a Password', style: h5),
         sh8,
-        CustomTextField(hintText: '*************'),
+        CustomTextField(
+          hintText: '*************',
+          controller: signupController.passwordController.value,
+        ),
       ],
-    );
+    ));
   }
 
   Widget _buildVendorInterface() {

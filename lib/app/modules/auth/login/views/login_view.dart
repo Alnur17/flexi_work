@@ -1,8 +1,6 @@
 import 'package:flexi_work/app/modules/user/user_dashboard/views/user_dashboard_view.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../../../../../common/app_color/app_colors.dart';
 import '../../../../../common/app_images/app_images.dart';
 import '../../../../../common/app_text_style/styles.dart';
@@ -13,8 +11,12 @@ import '../../forgot_password/views/forgot_password_view.dart';
 import '../../signup/views/signup_view.dart';
 import '../controllers/login_controller.dart';
 
-class LoginView extends GetView<LoginController> {
-  const LoginView({super.key});
+class LoginView extends GetView {
+  LoginView({super.key});
+
+  final LoginController loginController = Get.put(LoginController());
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,18 +49,21 @@ class LoginView extends GetView<LoginController> {
                 children: [
                   Text('Email', style: h4),
                   sh8,
-                  const CustomTextField(
+                  CustomTextField(
+                    controller: emailController,
                     hintText: 'Your email',
                   ),
                   const SizedBox(height: 12),
                   Text('Password', style: h4),
                   sh8,
                   CustomTextField(
+                    controller: passwordController,
                     sufIcon: Image.asset(
                       AppImages.eyeClose,
                       scale: 4,
                     ),
                     hintText: '**********',
+
                   ),
                 ],
               ),
@@ -94,13 +99,16 @@ class LoginView extends GetView<LoginController> {
                 ],
               ),
               sh24,
-              CustomButton(
-                text: 'Login',
-                onPressed: () {
-                  Get.to(()=> UserDashboardView());
+              Obx(() => CustomButton(
+                text: loginController.isLoading.value ? 'Loading...' : 'Login',
+                onPressed:  () {
+                  loginController.signInController(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                  );
                 },
                 gradientColors: AppColors.gradientColor,
-              ),
+              )),
               sh10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -115,31 +123,10 @@ class LoginView extends GetView<LoginController> {
                   const Expanded(child: Divider()),
                 ],
               ),
-              // sh10,
-              // GoogleButton(
-              //   assetPath: AppImages.google,
-              //   label: 'Continue with Google',
-              //   onTap: () {
-              //   },
-              // ),
-              // sh20,
-              // GoogleButton(
-              //   assetPath: AppImages.apple,
-              //   label: 'Continue with Apple',
-              //   onTap: () {
-              //
-              //   },
-              // ),
-              // sh20,
-              // GoogleButton(
-              //   assetPath: AppImages.facebook,
-              //   label: 'Continue with Facebook',
-              //   onTap: () {},
-              // ),
               sh10,
               GestureDetector(
                 onTap: () {
-                  Get.to(() => const SignupView());
+                  Get.to(() =>SignupView());
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

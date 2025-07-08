@@ -9,6 +9,8 @@ class CustomTextField extends StatelessWidget {
   final TextStyle? hintTextStyle;
   final Widget? sufIcon;
   final Widget? preIcon;
+  final bool? readOnly;
+  final Function()? onTap;
   final ValueChanged<String>? onChange;
   final double borderRadius;
   final Color? containerColor;
@@ -22,7 +24,9 @@ class CustomTextField extends StatelessWidget {
     this.hintTextStyle,
     this.sufIcon,
     this.preIcon,
+    this.readOnly = false,
     this.onChange,
+    this.onTap,
     this.borderRadius = 12,
     this.containerColor,
     this.borderColor,
@@ -40,6 +44,8 @@ class CustomTextField extends StatelessWidget {
       child: TextField(
         textInputAction: TextInputAction.done,
         onChanged: onChange,
+        readOnly: readOnly!,
+        onTap: onTap,
         controller: controller,
         maxLines: null,
         keyboardType: TextInputType.multiline,

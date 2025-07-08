@@ -12,8 +12,11 @@ import '../../../../../common/widgets/custom_button.dart';
 import '../../login/views/login_view.dart';
 import '../controllers/signup_controller.dart';
 
-class SignupView extends GetView<SignupController> {
-  const SignupView({super.key});
+class SignupView extends GetView {
+  SignupView({super.key});
+
+  SignupController signupController = Get.put(SignupController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,14 +74,28 @@ class SignupView extends GetView<SignupController> {
               CustomButton(
                 text: 'Sign Up',
                 onPressed: () {
-                  Get.offAll(() => const VerifyYourEmailView());
+                  if(signupController.selectedRole.value == "user") {
+                    print(signupController.selectedRole.value);
+                    print(signupController.passwordController.value.text);
+                    print(signupController.emailController.value.text);
+                    print(signupController.mobileNumberController.value.text);
+                    print(signupController.birthDateController.value.text);
+                    print(signupController.fullNameController.value.text);
+
+                    //Get.offAll(() => const VerifyYourEmailView());
+                  } else if(signupController.selectedRole.value == "vendor") {
+                    print("all vendor");
+                  } else if(signupController.selectedRole.value == "service_provider") {
+                    print("all service_provider");
+                  }
+
                 },
                 gradientColors: AppColors.gradientColor,
               ),
               sh10,
               GestureDetector(
                 onTap: () {
-                  Get.offAll(() => const LoginView());
+                  Get.offAll(() =>  LoginView());
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
