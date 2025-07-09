@@ -2,6 +2,9 @@ class AppConstant {
 
 
   static const token = 'token';
+  static const localAuth = 'localAuth';
+  static const registrationApiResponse = 'registrationApiResponse';
+  static const resendOtpApiResponse = 'resendOtpApiResponse';
   static const refCode = 'refCode';
   static const userId = 'userId';
   static const createRouteId = 'createRouteId';

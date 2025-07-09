@@ -1,9 +1,12 @@
-import 'package:flexi_work/app/modules/user/user_dashboard/views/user_dashboard_view.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../common/app_color/app_colors.dart';
+import '../../../../../common/app_constant/app_constant.dart';
 import '../../../../../common/app_images/app_images.dart';
 import '../../../../../common/app_text_style/styles.dart';
+import '../../../../../common/local_store/local_store.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
 import '../../../../../common/widgets/custom_textfield.dart';
@@ -15,8 +18,6 @@ class LoginView extends GetView {
   LoginView({super.key});
 
   final LoginController loginController = Get.put(LoginController());
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,46 +51,85 @@ class LoginView extends GetView {
                   Text('Email', style: h4),
                   sh8,
                   CustomTextField(
-                    controller: emailController,
+                    controller: loginController.emailController.value,
                     hintText: 'Your email',
                   ),
                   const SizedBox(height: 12),
                   Text('Password', style: h4),
                   sh8,
-                  CustomTextField(
-                    controller: passwordController,
-                    sufIcon: Image.asset(
-                      AppImages.eyeClose,
-                      scale: 4,
+                  Obx(()=>CustomTextField(
+                    obscureText: loginController.obscureText.value,
+                    controller: loginController.passwordController.value,
+                    sufIcon: InkWell(
+                      onTap: () {
+                        if(loginController.obscureText.value == false) {
+                          loginController.obscureText.value = true;
+                        } else {
+                          loginController.obscureText.value = false;
+                        }
+                      },
+                      child: Image.asset(
+                        loginController.obscureText.value == true ? AppImages.eyeClose : AppImages.eyeOpen,
+                        scale: 4,
+                      ),
                     ),
                     hintText: '**********',
 
-                  ),
+                  ),)
                 ],
               ),
               sh16,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: Image.asset(
+
+
+                  Obx(()=>InkWell(
+                    onTap: () {
+                      if(loginController.isRememberMe.value == false) {
+                        loginController.isRememberMe.value = true;
+                      } else {
+                        loginController.isRememberMe.value = false;
+                        LocalStorage.removeData(key: AppConstant.localAuth);
+                        loginController.emailController.value.clear();
+                        loginController.passwordController.value.clear();
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        loginController.isRememberMe.value == false ?
+                        Image.asset(
                           AppImages.checkBoxCircle,
                           scale: 4,
+                        ) : Container(
+                          height: 23,
+                          width: 23,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: AppColors.green),
+                          ),
+                          child: Center(
+                            child: Container(
+                              height: 10,
+                              width: 10,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.green,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                      sw16,
-                      Text(
-                        'Remember Me',
-                        style: h4,
-                      ),
-                    ],
-                  ),
+                        sw16,
+                        Text(
+                          'Remember Me',
+                          style: h4,
+                        ),
+                      ],
+                    ),
+                  ),),
                   GestureDetector(
                     onTap: () {
-                      Get.to(() => const ForgotPasswordView());
+                      Get.offAll(() => ForgotPasswordView());
                     },
                     child: Text(
                       'Forgot password?',
@@ -101,11 +141,23 @@ class LoginView extends GetView {
               sh24,
               Obx(() => CustomButton(
                 text: loginController.isLoading.value ? 'Loading...' : 'Login',
-                onPressed:  () {
-                  loginController.signInController(
-                    email: emailController.text.trim(),
-                    password: passwordController.text.trim(),
-                  );
+                onPressed: () async {
+                  if(loginController.isRememberMe.value == true) {
+                    Map<String,dynamic> data = {
+                      "email": loginController.emailController.value.text.trim(),
+                      "password": loginController.passwordController.value.text.trim(),
+                    };
+                    LocalStorage.saveData(key: AppConstant.localAuth, data: jsonEncode(data));
+                    await loginController.signInController(
+                      email: loginController.emailController.value.text.trim(),
+                      password: loginController.passwordController.value.text.trim(),
+                    );
+                  } else {
+                    await loginController.signInController(
+                      email: loginController.emailController.value.text.trim(),
+                      password: loginController.passwordController.value.text.trim(),
+                    );
+                  }
                 },
                 gradientColors: AppColors.gradientColor,
               )),

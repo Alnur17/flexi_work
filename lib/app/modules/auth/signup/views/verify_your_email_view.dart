@@ -1,8 +1,6 @@
 import 'dart:developer';
 
-import 'package:flexi_work/app/modules/service_provider/service_provider_dashboard/views/service_provider_dashboard_view.dart';
-import 'package:flexi_work/app/modules/user/user_dashboard/views/user_dashboard_view.dart';
-import 'package:flexi_work/app/modules/vendor/vendor_dashboard/views/vendor_dashboard_view.dart';
+import 'package:flexi_work/app/modules/auth/signup/views/signup_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -13,15 +11,16 @@ import '../../../../../common/app_images/app_images.dart';
 import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
-import '../../login/views/login_view.dart';
 import '../controllers/signup_controller.dart';
 
 class VerifyYourEmailView extends GetView {
-  const VerifyYourEmailView({super.key});
+  VerifyYourEmailView({super.key,required,required this.email});
+
+  SignupController signupController = Get.put(SignupController());
+  final String email;
 
   @override
   Widget build(BuildContext context) {
-    final SignupController signupController = Get.find<SignupController>();
     return Scaffold(
       backgroundColor: AppColors.mainColor,
       appBar: AppBar(
@@ -30,7 +29,7 @@ class VerifyYourEmailView extends GetView {
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Get.off(()=>SignupView());
           },
           child: Image.asset(
             AppImages.back,
@@ -77,8 +76,12 @@ class VerifyYourEmailView extends GetView {
               cursorColor: AppColors.blue,
               enablePinAutofill: true,
               enableActiveFill: true,
-              onCompleted: (v) {},
-              onChanged: (value) {},
+              onCompleted: (v) {
+                signupController.otpText.value = v;
+              },
+              onChanged: (value) {
+                signupController.otpText.value = value;
+              },
               beforeTextPaste: (text) {
                 log("Allowing to paste $text");
                 return true;
@@ -86,50 +89,75 @@ class VerifyYourEmailView extends GetView {
               appContext: context,
             ),
             sh20,
-            CustomButton(
-              text: 'Verify',
-              onPressed: () {
+            Obx(()=>CustomButton(
+              text: signupController.isSubmit.value == true ? 'Verifying... ' : 'Verify',
+              onPressed: () async {
+                print(email);
+                print(signupController.otpText.value);
+                String userRole = signupController.selectedRole.value;
+                print(userRole);
+                if(userRole == 'user') {
+                  await signupController.checkTheRegistrationLogin();
+                  print(signupController.registrationResponseModel.value.data?.otpToken?.token);
+                  if(signupController.registrationResponseModel.value.data?.otpToken?.token != null) {
+                    await signupController.otpVerificationController(
+                      otp: signupController.otpText.value,
+                      accessToken: signupController.registrationResponseModel.value.data?.otpToken?.token,
+                    );
+                  }
+                }
                 //if (isOtpValid) {
                 // Get selected role from SignupController
-                String userRole = signupController.selectedRole.value;
+                //String userRole = signupController.selectedRole.value;
 
                 // Navigate to the appropriate dashboard
-                switch (userRole) {
-                  case 'user':
-                    Get.offAll(() => UserDashboardView());
-                    break;
-                  case 'vendor':
-                    Get.offAll(() => VendorDashboardView());
-                    break;
-                  case 'service_provider':
-                    Get.offAll(() => ServiceProviderDashboardView());
-                    break;
-                  default:
-                    Get.offAll(() =>  LoginView());
-                    break;
-                }
+                // switch (userRole) {
+                //   case 'user':
+                //     Get.offAll(() => UserDashboardView());
+                //     break;
+                //   case 'vendor':
+                //     Get.offAll(() => VendorDashboardView());
+                //     break;
+                //   case 'service_provider':
+                //     Get.offAll(() => ServiceProviderDashboardView());
+                //     break;
+                //   default:
+                //     Get.offAll(() =>  LoginView());
+                //     break;
+                // }
                 // } else {
                 // // Show error if OTP is invalid
                 // Get.snackbar('Error', 'Invalid OTP. Please try again.');
                 // }
               },
               gradientColors: AppColors.gradientColor,
-            ),
+            ),),
             sh30,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Don’t receive any code?',
-                  style: h3,
-                ),
-                sw8,
-                Text(
-                  'Resend code',
-                  style: h3.copyWith(color: AppColors.textColorBlue),
-                ),
-              ],
-            ),
+
+            Obx(()=>InkWell(
+              onTap: signupController.timeCounter.value > 0 ? null : () async {
+                await signupController.resentOtpController(email: email);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Don’t receive any code?',
+                    style: h3,
+                  ),
+                  sw8,
+                  signupController.timeCounter.value > 0 ?
+                  Text(
+                    '${signupController.timeCounter.value} s',
+                    style: h3.copyWith(color: AppColors.textColorBlue),
+                  ) :
+                  Text(
+                    signupController.isResendOtp.value == true ? 'Resending .... ' : 'Resend code',
+                    style: h3.copyWith(color: AppColors.textColorBlue),
+                  ),
+                ],
+              ),
+            )),
           ],
         ),
       ),

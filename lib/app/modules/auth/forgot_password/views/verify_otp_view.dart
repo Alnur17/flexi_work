@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flexi_work/app/modules/auth/forgot_password/views/forgot_password_view.dart';
 import 'package:flexi_work/app/modules/auth/forgot_password/views/reset_password_view.dart';
 import 'package:flutter/material.dart';
 
@@ -11,9 +12,16 @@ import '../../../../../common/app_images/app_images.dart';
 import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
+import '../controllers/forgot_password_controller.dart';
 
 class VerifyOtpView extends GetView {
-  const VerifyOtpView({super.key});
+  VerifyOtpView({super.key,required this.email});
+
+
+  final String email;
+
+  ForgotPasswordController forgotPasswordController = Get.put(ForgotPasswordController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +32,7 @@ class VerifyOtpView extends GetView {
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Get.to(()=>ForgotPasswordView());
           },
           child: Image.asset(
             AppImages.back,
@@ -71,8 +79,12 @@ class VerifyOtpView extends GetView {
               cursorColor: AppColors.blue,
               enablePinAutofill: true,
               enableActiveFill: true,
-              onCompleted: (v) {},
-              onChanged: (value) {},
+              onCompleted: (v) {
+                forgotPasswordController.otpText.value = v;
+              },
+              onChanged: (value) {
+                forgotPasswordController.otpText.value = value;
+              },
               beforeTextPaste: (text) {
                 log("Allowing to paste $text");
                 return true;
@@ -80,18 +92,48 @@ class VerifyOtpView extends GetView {
               appContext: context,
             ),
             sh20,
-            CustomButton(
-              text: 'Confirm',
-              onPressed: () {
-                Get.to(() => const ResetPasswordView());
+            Obx(()=>CustomButton(
+              text: forgotPasswordController.isSubmit.value == true ? 'Submitting....' : 'Confirm',
+              onPressed: () async {
+                print(email);
+                print(forgotPasswordController.otpText.value);
+                await forgotPasswordController.checkTheRegistrationLogin();
+                print(forgotPasswordController.forgotPasswordResponseModel.value.data?.token);
+                if(forgotPasswordController.forgotPasswordResponseModel.value.data?.token != null) {
+                  await forgotPasswordController.otpVerificationController(
+                    otp: forgotPasswordController.otpText.value,
+                    accessToken: forgotPasswordController.forgotPasswordResponseModel.value.data!.token!,
+                    email: email,
+                  );
+                }
               },
               gradientColors: AppColors.gradientColor,
-            ),
+            ),),
             sh30,
-            Text(
-              'Resend code in 53s',
-              style: h3,
-            ),
+            Obx(()=>InkWell(
+              onTap: () async {
+                await forgotPasswordController.forgotController(email: email);
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Don’t receive any code?',
+                    style: h3,
+                  ),
+                  sw8,
+                  forgotPasswordController.timeCounter.value > 0 ?
+                  Text(
+                    '${forgotPasswordController.timeCounter.value} s',
+                    style: h3.copyWith(color: AppColors.textColorBlue),
+                  ) :
+                  Text(
+                    forgotPasswordController.isLoading.value == true ? 'Resending .... ' : 'Resend code',
+                    style: h3.copyWith(color: AppColors.textColorBlue),
+                  ),
+                ],
+              ),
+            )),
           ],
         ),
       ),

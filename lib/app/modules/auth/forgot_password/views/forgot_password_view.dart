@@ -9,10 +9,15 @@ import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
 import '../../../../../common/widgets/custom_textfield.dart';
+import '../../login/views/login_view.dart';
 import '../controllers/forgot_password_controller.dart';
 
 class ForgotPasswordView extends GetView<ForgotPasswordController> {
-  const ForgotPasswordView({super.key});
+  ForgotPasswordView({super.key});
+
+  ForgotPasswordController forgotPasswordController = Get.put(ForgotPasswordController());
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +28,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Get.offAll(()=> LoginView());
           },
           child: Image.asset(
             AppImages.back,
@@ -61,15 +66,16 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                 AppImages.mail,
                 scale: 4,
               ),
+              controller: forgotPasswordController.emailController.value,
             ),
             sh30,
-            CustomButton(
-              text: 'Send',
-              onPressed: () {
-                Get.to(() => VerifyOtpView());
+            Obx(()=>CustomButton(
+              text: forgotPasswordController.isLoading.value == true ? 'Sending....' : 'Send',
+              onPressed: () async {
+                await forgotPasswordController.forgotController(email: forgotPasswordController.emailController.value.text);
               },
               gradientColors: AppColors.gradientColor,
-            ),
+            ),),
           ],
         ),
       ),

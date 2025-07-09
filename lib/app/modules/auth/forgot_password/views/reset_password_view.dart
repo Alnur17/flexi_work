@@ -9,9 +9,14 @@ import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
 import '../../../../../common/widgets/custom_textfield.dart';
+import '../controllers/forgot_password_controller.dart';
 
 class ResetPasswordView extends GetView {
-  const ResetPasswordView({super.key});
+  ResetPasswordView({super.key,required this.email});
+
+  ForgotPasswordController forgotPasswordController = Get.put(ForgotPasswordController());
+  final String email;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,34 +62,66 @@ class ResetPasswordView extends GetView {
               style: h4,
             ),
             sh12,
-            CustomTextField(
+            Obx(()=>CustomTextField(
               hintText: '**********',
-              sufIcon: Image.asset(
-                AppImages.eyeClose,
-                scale: 4,
+              obscureText: forgotPasswordController.obscureText.value,
+              sufIcon: InkWell(
+                onTap: () {
+                  if(forgotPasswordController.obscureText.value == false) {
+                    forgotPasswordController.obscureText.value = true;
+                  } else {
+                    forgotPasswordController.obscureText.value = false;
+                  }
+                },
+                child: Image.asset(
+                  forgotPasswordController.obscureText.value == true ? AppImages.eyeClose : AppImages.eyeOpen,
+                  scale: 4,
+                ),
               ),
-            ),
+              controller: forgotPasswordController.passwordController.value,
+            ),),
             sh16,
             Text(
               'Confirm Password',
               style: h4,
             ),
             sh12,
-            CustomTextField(
-              sufIcon: Image.asset(
-                AppImages.eyeClose,
-                scale: 4,
+            Obx(()=>CustomTextField(
+              obscureText: forgotPasswordController.confirmObscureText.value,
+              sufIcon: InkWell(
+                onTap: () {
+                  if(forgotPasswordController.confirmObscureText.value == false) {
+                    forgotPasswordController.confirmObscureText.value = true;
+                  } else {
+                    forgotPasswordController.confirmObscureText.value = false;
+                  }
+                },
+                child: Image.asset(
+                  forgotPasswordController.confirmObscureText.value == true ? AppImages.eyeClose : AppImages.eyeOpen,
+                  scale: 4,
+                ),
               ),
               hintText: '**********',
-            ),
+              controller: forgotPasswordController.confirmPasswordController.value,
+            )),
             sh16,
-            CustomButton(
-              text: 'Update Password',
-              onPressed: () {
-                Get.offAll(()=> LoginView());
+
+            Obx(()=>CustomButton(
+              text: forgotPasswordController.isChangePassword.value == true ? 'Submitting....' : 'Update Password',
+              onPressed: () async {
+                await forgotPasswordController.checkTheRegistrationLogin();
+                print(forgotPasswordController.forgotPasswordResponseModel.value.data?.token);
+                if(forgotPasswordController.forgotPasswordResponseModel.value.data?.token != null) {
+                  await forgotPasswordController.resetPasswordController(
+                    accessToken: forgotPasswordController.forgotPasswordResponseModel.value.data!.token!,
+                    email: email,
+                    newPassword: forgotPasswordController.passwordController.value.text,
+                    confirmPassword: forgotPasswordController.confirmPasswordController.value.text,
+                  );
+                }
               },
               gradientColors: AppColors.gradientColor,
-            ),
+            ),),
           ],
         ),
       ),

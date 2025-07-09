@@ -1,4 +1,3 @@
-import 'package:flexi_work/app/modules/auth/signup/views/verify_your_email_view.dart';
 import 'package:flexi_work/common/helper/signup_body_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +8,7 @@ import '../../../../../common/app_images/app_images.dart';
 import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
+import '../../../../../common/widgets/custom_snackbar.dart';
 import '../../login/views/login_view.dart';
 import '../controllers/signup_controller.dart';
 
@@ -71,18 +71,26 @@ class SignupView extends GetView {
                 ],
               ),
               sh20,
-              CustomButton(
-                text: 'Sign Up',
-                onPressed: () {
+              Obx(()=> CustomButton(
+                text: signupController.isLoading.value == true ? "Submitting ...." : 'Sign Up',
+                onPressed: () async {
                   if(signupController.selectedRole.value == "user") {
-                    print(signupController.selectedRole.value);
-                    print(signupController.passwordController.value.text);
-                    print(signupController.emailController.value.text);
-                    print(signupController.mobileNumberController.value.text);
-                    print(signupController.birthDateController.value.text);
-                    print(signupController.fullNameController.value.text);
-
-                    //Get.offAll(() => const VerifyYourEmailView());
+                    await signupController.signUpController(
+                      fullName: signupController.fullNameController.value.text,
+                      email: signupController.emailController.value.text,
+                      password: signupController.passwordController.value.text,
+                      contactNumber: signupController.mobileNumberController.value.text,
+                      dobDate: signupController.birthDateController.value.text,
+                      onSuccess: (e) async {
+                        kSnackBar(message: "$e", bgColor: AppColors.green);
+                      },
+                      onFail: (e) async {
+                        kSnackBar(message: "$e", bgColor: AppColors.red);
+                      },
+                      onExceptionFail: (e) async {
+                        kSnackBar(message: "$e", bgColor: AppColors.red);
+                      },
+                    );
                   } else if(signupController.selectedRole.value == "vendor") {
                     print("all vendor");
                   } else if(signupController.selectedRole.value == "service_provider") {
@@ -91,7 +99,7 @@ class SignupView extends GetView {
 
                 },
                 gradientColors: AppColors.gradientColor,
-              ),
+              ),),
               sh10,
               GestureDetector(
                 onTap: () {

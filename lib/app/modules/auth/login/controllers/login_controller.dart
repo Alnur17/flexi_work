@@ -15,13 +15,19 @@ import 'package:get/get.dart';
 class LoginController extends GetxController {
   var isLoading = false.obs;
   Rx<LoginResponseModel> loginResponseModel = LoginResponseModel(success: null, message: null, data: null).obs;
+  RxBool obscureText = true.obs;
+  RxBool isRememberMe = false.obs;
+
+  Rx<TextEditingController> emailController = TextEditingController().obs;
+  Rx<TextEditingController> passwordController = TextEditingController().obs;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     Future.delayed(Duration(seconds: 1),() async {
-      checkTheUserLogin();
+      await checkTheUserLogin();
+      await checkLocalAuth();
     });
   }
 
@@ -66,6 +72,18 @@ class LoginController extends GetxController {
       kSnackBar(message: "Sign in Failed: $e", bgColor: AppColors.red);
     } finally {
       isLoading(false);
+    }
+  }
+
+
+  Future<void> checkLocalAuth() async {
+    print(LocalStorage.getData(key: AppConstant.localAuth));
+    if(LocalStorage.getData(key: AppConstant.localAuth) != null) {
+      emailController.value.text = jsonDecode(LocalStorage.getData(key: AppConstant.localAuth))["email"];
+      passwordController.value.text = jsonDecode(LocalStorage.getData(key: AppConstant.localAuth))["password"];
+      isRememberMe.value = true;
+    } else {
+      print("not Auth register");
     }
   }
 

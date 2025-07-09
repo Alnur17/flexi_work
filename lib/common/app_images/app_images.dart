@@ -10,6 +10,7 @@ class AppImages {
   static const checkBoxCircle = "assets/icons/circle checkbox.png";
   static const checkBoxFilled = "assets/icons/checkbox filled.png";
   static const eyeClose = "assets/icons/eye close.png";
+  static const eyeOpen = "assets/icons/View_light.png";
   static const eyeCircle = "assets/icons/eye circle.png";
   static const mail = "assets/icons/mail.png";
   static const download = "assets/icons/download.png";

@@ -116,6 +116,7 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
         CustomTextField(
           controller: signupController.birthDateController.value,
           hintText: 'Enter your birth date',
+          readOnly: true,
           onTap: () async {
             showDatePicker(
               context: context,
@@ -148,6 +149,20 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
         sh8,
         CustomTextField(
           hintText: '*************',
+          obscureText: signupController.obscureText.value,
+          sufIcon: InkWell(
+            onTap: () {
+              if(signupController.obscureText.value == false) {
+                signupController.obscureText.value = true;
+              } else {
+                signupController.obscureText.value = false;
+              }
+            },
+            child: Image.asset(
+              signupController.obscureText.value == true ? AppImages.eyeClose : AppImages.eyeOpen,
+              scale: 4,
+            ),
+          ),
           controller: signupController.passwordController.value,
         ),
       ],
