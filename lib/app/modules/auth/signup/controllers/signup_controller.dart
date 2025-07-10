@@ -103,7 +103,6 @@ class SignupController extends GetxController {
 
       // Send the request
       var response = await request.send();
-
       // Get the response body
       String responseBody = await response.stream.bytesToString();
       var responseData = jsonDecode(responseBody);
