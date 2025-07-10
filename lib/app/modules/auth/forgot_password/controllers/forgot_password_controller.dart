@@ -45,7 +45,7 @@ class ForgotPasswordController extends GetxController {
   }
 
 
-  // Sign In
+  // forgot password
   Future forgotController({
     required String email,
   }) async {

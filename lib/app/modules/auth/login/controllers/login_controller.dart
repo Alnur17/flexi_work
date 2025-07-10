@@ -63,7 +63,7 @@ class LoginController extends GetxController {
         log(token);
         LocalStorage.saveData(key: AppConstant.token, data: jsonEncode(responseBody));
         kSnackBar(message: message, bgColor: AppColors.green);
-        Get.to(() => UserDashboardView());
+        Get.to(() => UserDashboardView(index: 0,));
       } else {
         throw "Sign in Failed!";
       }
@@ -94,7 +94,7 @@ class LoginController extends GetxController {
       loginResponseModel.value = LoginResponseModel.fromJson(jsonDecode(LocalStorage.getData(key: AppConstant.token)));
       Map<String, dynamic> decodedToken = parseJwt(loginResponseModel.value.data!.accessToken!);
       if(decodedToken['role'] == "user") {
-        Get.to(() => UserDashboardView());
+        Get.to(() => UserDashboardView(index: 0,));
       }
     } else {
       print("not register");

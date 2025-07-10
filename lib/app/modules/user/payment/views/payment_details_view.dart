@@ -108,7 +108,7 @@ class PaymentDetailsView extends GetView {
             CustomButton(
               text: 'Back to Homepage',
               onPressed: () {
-                Get.offAll(()=> UserDashboardView());
+                Get.offAll(()=> UserDashboardView(index: 2,));
               },
               gradientColors: AppColors.gradientColor,
             ),

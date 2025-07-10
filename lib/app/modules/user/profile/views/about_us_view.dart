@@ -1,6 +1,10 @@
+import 'package:flexi_work/app/modules/user/profile/controllers/profile_controller.dart';
+import 'package:flexi_work/app/modules/user/user_dashboard/views/user_dashboard_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import 'package:get/get.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 import '../../../../../common/app_color/app_colors.dart';
 import '../../../../../common/app_images/app_images.dart';
@@ -9,7 +13,10 @@ import '../../../../../common/const_text/const_text.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 
 class AboutUsView extends GetView {
-  const AboutUsView({super.key});
+  AboutUsView({super.key});
+
+  final ProfileController profileController = Get.put(ProfileController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,67 +28,45 @@ class AboutUsView extends GetView {
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Get.off(()=>UserDashboardView(index: 3,),preventDuplicates: false);
           },
           child: Image.asset(
             AppImages.back,
             scale: 4,
           ),
         ),      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16,right: 16,bottom: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              sh30,
-              // Text(
-              //   'About Us',
-              //   style: h2,
-              // ),
-              // sh24,
-              Text(
-                acceptance0fTerms,
-                style: h4.copyWith(
-                  fontSize: 14,
-                ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await profileController.getContentController();
+        },
+        child: Shimmer(
+          color: AppColors.gray,
+          enabled: profileController.isLoading.value,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16,right: 16,bottom: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  sh30,
+
+                  Container(
+                    width: MediaQuery.sizeOf(context).height / 1,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                    ),
+                    alignment: Alignment.center,
+                    child: HtmlWidget(
+                      '''${profileController.contentResponseModel.value.data?.first.aboutUs}''',
+                      textStyle: h4.copyWith(
+                        fontSize: 14,
+                      ),
+                    ),
+                  )
+
+                ],
               ),
-              sh24,
-              Text(
-                acceptance0fTerms,
-                style: h4.copyWith(
-                  fontSize: 14,
-                ),
-              ),
-              sh24,
-              Text(
-                acceptance0fTerms,
-                style: h4.copyWith(
-                  fontSize: 14,
-                ),
-              ),
-              sh24,
-              Text(
-                acceptance0fTerms,
-                style: h4.copyWith(
-                  fontSize: 14,
-                ),
-              ),
-              sh24,
-              Text(
-                acceptance0fTerms,
-                style: h4.copyWith(
-                  fontSize: 14,
-                ),
-              ),
-              sh24,
-              Text(
-                acceptance0fTerms,
-                style: h4.copyWith(
-                  fontSize: 14,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

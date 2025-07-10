@@ -6,7 +6,7 @@ class UserDashboardBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<UserDashboardController>(
-      () => UserDashboardController(),
+      () => UserDashboardController(initialIndex: 0),
     );
   }
 }

@@ -69,6 +69,7 @@ class AppImages {
   static const attachFile = "assets/icons/attach file.png";
   static const account = "assets/icons/account.png";
   static const aboutUs = "assets/icons/about us.png";
+  static const setting = "assets/icons/setting.png";
   static const helpCenter = "assets/icons/help center.png";
   static const support = "assets/icons/support.png";
   static const supportSmall = "assets/icons/support small.png";
@@ -97,7 +98,7 @@ class AppImages {
   static const fileAttachment = 'assets/icons/file-attachment.png';
   static const media = "assets/icons/media.png";
   static const logoutTwo = "assets/icons/logout 2.png";
-  static const settings = "assets/icons/settings.png";
+  static const settings = "assets/icons/setting.png";
   static const placeHolderImage = "assets/icons/placeholder no image.png";
   static const adminSettings = "assets/icons/admin settings.png";
   static const camera = "assets/icons/camera.png";

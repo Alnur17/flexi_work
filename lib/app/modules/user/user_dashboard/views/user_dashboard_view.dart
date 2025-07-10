@@ -11,14 +11,14 @@ import '../../../../../common/app_text_style/styles.dart';
 import '../../home/views/home_view.dart';
 import '../controllers/user_dashboard_controller.dart';
 
-class UserDashboardView extends GetView<UserDashboardController> {
-  final UserDashboardController userDashboardController =
-      Get.put(UserDashboardController());
+class UserDashboardView extends GetView {
+  const UserDashboardView({super.key,required this.index});
 
-  UserDashboardView({super.key});
+  final int index;
 
   @override
   Widget build(BuildContext context) {
+    UserDashboardController userDashboardController = Get.put(UserDashboardController(initialIndex: index));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(

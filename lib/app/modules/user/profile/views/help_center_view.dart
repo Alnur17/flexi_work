@@ -1,15 +1,22 @@
+import 'package:flexi_work/app/modules/user/profile/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import 'package:get/get.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 import '../../../../../common/app_color/app_colors.dart';
 import '../../../../../common/app_images/app_images.dart';
 import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/const_text/const_text.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
+import '../../user_dashboard/views/user_dashboard_view.dart';
 
 class HelpCenterView extends GetView {
-  const HelpCenterView({super.key});
+  HelpCenterView({super.key});
+
+  final ProfileController profileController = Get.put(ProfileController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +28,7 @@ class HelpCenterView extends GetView {
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Get.off(()=>UserDashboardView(index: 3,),preventDuplicates: false);
           },
           child: Image.asset(
             AppImages.back,
@@ -29,53 +36,38 @@ class HelpCenterView extends GetView {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              sh30,
-              // Text(
-              //   'Terms & Conditions',
-              //   style: h2,
-              // ),
-              // sh24,
-              Text(
-                termsIntroduction,
-                style: h4.copyWith(
-                  fontSize: 14,
-                ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await profileController.getContentController();
+        },
+        child: Shimmer(
+          color: AppColors.gray,
+          enabled: profileController.isLoading.value,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16,right: 16,bottom: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  sh30,
+
+                  Container(
+                    width: MediaQuery.sizeOf(context).height / 1,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                    ),
+                    alignment: Alignment.center,
+                    child: HtmlWidget(
+                      '''${profileController.contentResponseModel.value.data?.first.termsAndConditions}''',
+                      textStyle: h4.copyWith(
+                        fontSize: 14,
+                      ),
+                    ),
+                  )
+
+                ],
               ),
-              sh24,
-              Text(
-                termsIntroduction,
-                style: h4.copyWith(
-                  fontSize: 14,
-                ),
-              ),
-              sh24,
-              Text(
-                termsIntroduction,
-                style: h4.copyWith(
-                  fontSize: 14,
-                ),
-              ),
-              sh24,
-              Text(
-                termsIntroduction,
-                style: h4.copyWith(
-                  fontSize: 14,
-                ),
-              ),
-              sh24,
-              Text(
-                termsIntroduction,
-                style: h4.copyWith(
-                  fontSize: 14,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

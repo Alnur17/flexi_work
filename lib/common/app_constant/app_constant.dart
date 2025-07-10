@@ -5,6 +5,7 @@ class AppConstant {
   static const localAuth = 'localAuth';
   static const registrationApiResponse = 'registrationApiResponse';
   static const resendOtpApiResponse = 'resendOtpApiResponse';
+  static const getProfileResponse = 'getProfileResponse';
   static const refCode = 'refCode';
   static const userId = 'userId';
   static const createRouteId = 'createRouteId';

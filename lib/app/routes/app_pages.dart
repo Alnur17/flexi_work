@@ -87,7 +87,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.USER_DASHBOARD,
-      page: () => UserDashboardView(),
+      page: () => UserDashboardView(index: 0,),
       binding: UserDashboardBinding(),
     ),
     GetPage(
@@ -112,7 +112,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFILE,
-      page: () => const ProfileView(),
+      page: () => ProfileView(),
       binding: ProfileBinding(),
     ),
     GetPage(
