@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flexi_work/common/helper/upload_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -79,8 +80,11 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
       child: Obx(
         () {
           bool isSelected = signupController.selectedRole.value == value;
-          return GestureDetector(
-            onTap: () => signupController.selectRole(value),
+          return InkWell(
+            onTap: () async {
+              await signupController.selectRole(value);
+              await signupController.onRefreshValue();
+            },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8.0),
               decoration: BoxDecoration(
@@ -170,57 +174,109 @@ class _SignupBodyWidgetState extends State<SignupBodyWidget> {
   }
 
   Widget _buildVendorInterface() {
-    return Column(
+    return Obx(()=>Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Full Name', style: h5),
         sh8,
-        CustomTextField(hintText: 'Your name'),
+        CustomTextField(
+          controller: signupController.fullNameController.value,
+          hintText: 'Your name',
+        ),
         sh12,
         Text('Birth Date', style: h5),
         sh8,
-        CustomTextField(hintText: 'Enter your birth date'),
+        CustomTextField(
+          controller: signupController.birthDateController.value,
+          hintText: 'Enter your birth date',
+          readOnly: true,
+          onTap: () async {
+            showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2000),
+              lastDate: DateTime(2101),
+            ).then((value) {
+              if(value != null) {
+                signupController.birthDateController.value.text = DateFormat("yyyy-MM-dd").format(value);
+              }
+            });
+          },
+        ),
         sh12,
         Text('Mobile Number', style: h5),
         sh8,
-        CustomTextField(hintText: 'Enter your mobile number'),
+        CustomTextField(
+          controller: signupController.mobileNumberController.value,
+          hintText: 'Enter your mobile number',
+        ),
         sh12,
         Text('Email', style: h5),
         sh8,
-        CustomTextField(hintText: 'Enter your email'),
+        CustomTextField(
+          controller: signupController.emailController.value,
+          hintText: 'Enter your email',
+        ),
         sh12,
         Text('Create a Password', style: h5),
         sh8,
-        CustomTextField(hintText: '*************'),
+        CustomTextField(
+          hintText: '*************',
+          sufIcon: InkWell(
+            onTap: () {
+              if(signupController.obscureText.value == false) {
+                signupController.obscureText.value = true;
+              } else {
+                signupController.obscureText.value = false;
+              }
+            },
+            child: Image.asset(
+              signupController.obscureText.value == true ? AppImages.eyeClose : AppImages.eyeOpen,
+              scale: 4,
+            ),
+          ),
+          obscureText: signupController.obscureText.value,
+          controller: signupController.passwordController.value,
+        ),
         sh12,
         Text('Upload Legal ID', style: h5),
         sh8,
         UploadWidget(
-          onTap: () {},
+          onTap: () async {
+            FilePickerResult? result = await FilePicker.platform.pickFiles(
+              type: FileType.custom,
+              allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx'],
+            );
+            if (result != null) {
+              PlatformFile file = result.files.first;
+              signupController.legalId.value = File(file.path!);
+              print('File selected: ${signupController.legalId.value}');
+            }
+          },
           imagePath: AppImages.upload,
-          label: 'Upload',
+          label: signupController.legalId.value.path == "" ? 'Upload' : signupController.legalId.value.path.toString().split("/").last,
           isFile: false, // Asset
         ),
         sh12,
-        Text('Bank Statement', style: h5),
-        sh8,
-        UploadWidget(
-          onTap: () {},
-          imagePath: AppImages.upload,
-          label: 'Upload Statement',
-          isFile: false,
-        ),
-        sh12,
-        Text('Face Verification', style: h5),
-        sh8,
-        UploadWidget(
-          onTap: _takePicture,
-          imagePath: _capturedImage?.path ?? AppImages.upload,
-          label: 'Verify Face',
-          isFile: _capturedImage != null,
-        ),
+        // Text('Bank Statement', style: h5),
+        // sh8,
+        // UploadWidget(
+        //   onTap: () {},
+        //   imagePath: AppImages.upload,
+        //   label: 'Upload Statement',
+        //   isFile: false,
+        // ),
+        // sh12,
+        // Text('Face Verification', style: h5),
+        // sh8,
+        // UploadWidget(
+        //   onTap: _takePicture,
+        //   imagePath: _capturedImage?.path ?? AppImages.upload,
+        //   label: 'Verify Face',
+        //   isFile: _capturedImage != null,
+        // ),
       ],
-    );
+    ));
   }
 
   Widget _buildServiceProviderInterface() {

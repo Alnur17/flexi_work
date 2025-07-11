@@ -16,7 +16,7 @@ import '../controllers/signup_controller.dart';
 class VerifyYourEmailView extends GetView {
   VerifyYourEmailView({super.key,required,required this.email});
 
-  SignupController signupController = Get.put(SignupController());
+  final SignupController signupController = Get.put(SignupController());
   final String email;
 
   @override
@@ -97,6 +97,15 @@ class VerifyYourEmailView extends GetView {
                 String userRole = signupController.selectedRole.value;
                 print(userRole);
                 if(userRole == 'user') {
+                  await signupController.checkTheRegistrationLogin();
+                  print(signupController.registrationResponseModel.value.data?.otpToken?.token);
+                  if(signupController.registrationResponseModel.value.data?.otpToken?.token != null) {
+                    await signupController.otpVerificationController(
+                      otp: signupController.otpText.value,
+                      accessToken: signupController.registrationResponseModel.value.data?.otpToken?.token,
+                    );
+                  }
+                } else if(userRole == 'vendor') {
                   await signupController.checkTheRegistrationLogin();
                   print(signupController.registrationResponseModel.value.data?.otpToken?.token);
                   if(signupController.registrationResponseModel.value.data?.otpToken?.token != null) {

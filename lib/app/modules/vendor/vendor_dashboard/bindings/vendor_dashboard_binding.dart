@@ -6,7 +6,7 @@ class VendorDashboardBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<VendorDashboardController>(
-      () => VendorDashboardController(),
+      () => VendorDashboardController(initialIndex: 0),
     );
   }
 }

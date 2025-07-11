@@ -9,6 +9,7 @@ import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/local_store/local_store.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
+import '../../../../../common/widgets/custom_snackbar.dart';
 import '../../../../../common/widgets/custom_textfield.dart';
 import '../../forgot_password/views/forgot_password_view.dart';
 import '../../signup/views/signup_view.dart';
@@ -142,21 +143,27 @@ class LoginView extends GetView {
               Obx(() => CustomButton(
                 text: loginController.isLoading.value ? 'Loading...' : 'Login',
                 onPressed: () async {
-                  if(loginController.isRememberMe.value == true) {
-                    Map<String,dynamic> data = {
-                      "email": loginController.emailController.value.text.trim(),
-                      "password": loginController.passwordController.value.text.trim(),
-                    };
-                    LocalStorage.saveData(key: AppConstant.localAuth, data: jsonEncode(data));
-                    await loginController.signInController(
-                      email: loginController.emailController.value.text.trim(),
-                      password: loginController.passwordController.value.text.trim(),
-                    );
+                  if(loginController.emailController.value.text == "") {
+                    kSnackBar(message: "Please enter the email", bgColor: AppColors.red);
+                  } else if(loginController.passwordController.value.text == "") {
+                    kSnackBar(message: "Please enter the password", bgColor: AppColors.red);
                   } else {
-                    await loginController.signInController(
-                      email: loginController.emailController.value.text.trim(),
-                      password: loginController.passwordController.value.text.trim(),
-                    );
+                    if(loginController.isRememberMe.value == true) {
+                      Map<String,dynamic> data = {
+                        "email": loginController.emailController.value.text.trim(),
+                        "password": loginController.passwordController.value.text.trim(),
+                      };
+                      LocalStorage.saveData(key: AppConstant.localAuth, data: jsonEncode(data));
+                      await loginController.signInController(
+                        email: loginController.emailController.value.text.trim(),
+                        password: loginController.passwordController.value.text.trim(),
+                      );
+                    } else {
+                      await loginController.signInController(
+                        email: loginController.emailController.value.text.trim(),
+                        password: loginController.passwordController.value.text.trim(),
+                      );
+                    }
                   }
                 },
                 gradientColors: AppColors.gradientColor,

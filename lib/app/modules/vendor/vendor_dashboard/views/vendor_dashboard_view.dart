@@ -14,13 +14,13 @@ import '../../vendor_home/views/vendor_home_view.dart';
 import '../controllers/vendor_dashboard_controller.dart';
 
 class VendorDashboardView extends GetView<VendorDashboardController> {
-  final VendorDashboardController vendorDashboardController =
-      Get.put(VendorDashboardController());
+  VendorDashboardView({super.key,required this.index});
 
-  VendorDashboardView({super.key});
+  final int index;
 
   @override
   Widget build(BuildContext context) {
+    final VendorDashboardController vendorDashboardController = Get.put(VendorDashboardController(initialIndex: index));
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(

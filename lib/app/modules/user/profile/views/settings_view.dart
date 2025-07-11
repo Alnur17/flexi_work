@@ -70,7 +70,7 @@ class SettingsView extends GetView {
       titlePadding: EdgeInsets.only(top: 16),
       backgroundColor: AppColors.white,
       radius: 8,
-      content: Column(
+      content: Obx(()=>Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
@@ -88,7 +88,9 @@ class SettingsView extends GetView {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               OutlinedButton(
-                onPressed: () => Get.back(),
+                onPressed: () {
+                  Get.back();
+                },
                 style: TextButton.styleFrom(
                   backgroundColor: AppColors.white,
                   side: const BorderSide(color: AppColors.red),
@@ -107,8 +109,18 @@ class SettingsView extends GetView {
                 ),
               ),
               sw10,
+              profileController.isDelete.value == true ?
+              Container(
+                height: 56,
+                width: 100,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ) :
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await profileController.deleteUserController();
+                },
                 style: OutlinedButton.styleFrom(
                   backgroundColor: AppColors.red,
                   padding: const EdgeInsets.symmetric(
@@ -129,7 +141,7 @@ class SettingsView extends GetView {
             ],
           ),
         ],
-      ),
+      )),
     );
   }
 }

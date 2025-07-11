@@ -12,6 +12,7 @@ import '../../../../../common/local_store/local_store.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
 import '../../../../../common/widgets/custom_circular_container.dart';
+import '../../../../../common/widgets/custom_snackbar.dart';
 import '../../../../../common/widgets/custom_textfield.dart';
 import '../../../auth/forgot_password/views/forgot_password_view.dart';
 import '../../user_dashboard/views/user_dashboard_view.dart';
@@ -121,10 +122,22 @@ class ChangePasswordView extends GetView {
             CustomButton(
               text: profileController.isChangePassword.value == true ? 'Confirming....' : 'Confirm',
               onPressed: () async {
-                await profileController.changePasswordController(
-                  oldPassword: profileController.currentPasswordController.value.text,
-                  newPassword:  profileController.passwordController.value.text,
-                );
+                if(profileController.passwordController.value.text == "") {
+                  kSnackBar(message: "Please enter password", bgColor: AppColors.red);
+                } else if(profileController.currentPasswordController.value.text == "") {
+                  kSnackBar(message: "Please enter current password", bgColor: AppColors.red);
+                } else if(profileController.confirmPasswordController.value.text == "") {
+                  kSnackBar(message: "Please enter confirm password", bgColor: AppColors.red);
+                }  else if(profileController.confirmPasswordController.value.text != profileController.passwordController.value.text) {
+                  kSnackBar(message: "Password is not match", bgColor: AppColors.red);
+                } else if(profileController.passwordController.value.text.length < 8) {
+                  kSnackBar(message: "Password must be at least 8 characters", bgColor: AppColors.red);
+                } else {
+                  await profileController.changePasswordController(
+                    oldPassword: profileController.currentPasswordController.value.text,
+                    newPassword: profileController.passwordController.value.text,
+                  );
+                }
               },
               gradientColors: AppColors.gradientColor,
             ),

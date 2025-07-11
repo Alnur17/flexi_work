@@ -8,7 +8,7 @@ void kSnackBar({required String message, required Color bgColor}) {
         backgroundColor: bgColor,
         message: message,
         maxWidth: 1170,
-        duration: const Duration(seconds: 3),
+        duration: const Duration(seconds: 1),
         snackStyle: SnackStyle.FLOATING,
         margin: const EdgeInsets.all(10),
         borderRadius: 5,

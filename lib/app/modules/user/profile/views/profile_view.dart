@@ -1,4 +1,3 @@
-import 'package:flexi_work/app/modules/user/profile/views/change_password_view.dart';
 import 'package:flexi_work/app/modules/user/profile/views/help_center_view.dart';
 import 'package:flexi_work/app/modules/user/profile/views/policies_view.dart';
 import 'package:flexi_work/app/modules/user/profile/views/settings_view.dart';
@@ -21,7 +20,6 @@ import '../../user_dashboard/views/user_dashboard_view.dart';
 import '../controllers/profile_controller.dart';
 import 'about_us_view.dart';
 import 'account_view.dart';
-import 'address_view.dart';
 
 class ProfileView extends GetView {
   ProfileView({super.key});

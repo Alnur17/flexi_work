@@ -1,4 +1,3 @@
-import 'package:flexi_work/app/modules/auth/forgot_password/views/verify_otp_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,6 +7,7 @@ import '../../../../../common/app_images/app_images.dart';
 import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
+import '../../../../../common/widgets/custom_snackbar.dart';
 import '../../../../../common/widgets/custom_textfield.dart';
 import '../../login/views/login_view.dart';
 import '../controllers/forgot_password_controller.dart';
@@ -72,7 +72,11 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
             Obx(()=>CustomButton(
               text: forgotPasswordController.isLoading.value == true ? 'Sending....' : 'Send',
               onPressed: () async {
-                await forgotPasswordController.forgotController(email: forgotPasswordController.emailController.value.text);
+                if(forgotPasswordController.emailController.value.text == "") {
+                  kSnackBar(message: "Please enter your email", bgColor: AppColors.red);
+                } else {
+                  await forgotPasswordController.forgotController(email: forgotPasswordController.emailController.value.text);
+                }
               },
               gradientColors: AppColors.gradientColor,
             ),),

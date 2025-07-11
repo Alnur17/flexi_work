@@ -5,6 +5,7 @@ import 'package:flexi_work/app/data/api.dart';
 import 'package:flexi_work/app/data/base_client.dart';
 import 'package:flexi_work/app/modules/auth/login/model/login_response_model.dart';
 import 'package:flexi_work/app/modules/user/user_dashboard/views/user_dashboard_view.dart';
+import 'package:flexi_work/app/modules/vendor/vendor_dashboard/views/vendor_dashboard_view.dart';
 import 'package:flexi_work/common/app_color/app_colors.dart';
 import 'package:flexi_work/common/app_constant/app_constant.dart';
 import 'package:flexi_work/common/local_store/local_store.dart';
@@ -63,7 +64,7 @@ class LoginController extends GetxController {
         log(token);
         LocalStorage.saveData(key: AppConstant.token, data: jsonEncode(responseBody));
         kSnackBar(message: message, bgColor: AppColors.green);
-        Get.to(() => UserDashboardView(index: 0,));
+        await checkTheUserLogin();
       } else {
         throw "Sign in Failed!";
       }
@@ -95,6 +96,8 @@ class LoginController extends GetxController {
       Map<String, dynamic> decodedToken = parseJwt(loginResponseModel.value.data!.accessToken!);
       if(decodedToken['role'] == "user") {
         Get.to(() => UserDashboardView(index: 0,));
+      } else if(decodedToken['role'] == "vendor") {
+        Get.to(() => VendorDashboardView(index: 0,));
       }
     } else {
       print("not register");

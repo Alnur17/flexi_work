@@ -20,9 +20,10 @@ import '../model/registration_response_model.dart';
 class SignupController extends GetxController {
   var selectedRole = ''.obs;
 
-  void selectRole(String role) {
+  Future<void> selectRole(String role) async {
     selectedRole.value = role;
   }
+
 
   RxBool isLoading = false.obs;
   RxBool isSubmit = false.obs;
@@ -30,6 +31,7 @@ class SignupController extends GetxController {
   RxString otpText = "".obs;
   RxBool obscureText = true.obs;
   RxInt timeCounter = 120.obs;
+  Rx<File> legalId = File("").obs;
 
 
   Future<void> otpTimer() async {
@@ -53,6 +55,18 @@ class SignupController extends GetxController {
   Rx<TextEditingController> mobileNumberController = TextEditingController().obs;
   Rx<TextEditingController> emailController = TextEditingController().obs;
   Rx<TextEditingController> passwordController = TextEditingController().obs;
+
+
+  Future<void> onRefreshValue() async {
+    fullNameController.value.clear();
+    birthDateController.value.clear();
+    mobileNumberController.value.clear();
+    emailController.value.clear();
+    passwordController.value.clear();
+    obscureText.value = true;
+    legalId.value = File("");
+    registrationResponseModel.value = RegistrationResponseModel();
+  }
 
 
   Future signUpController ({
@@ -100,6 +114,88 @@ class SignupController extends GetxController {
       } else {
         request.fields['image'] = ''; // Empty string if no image
       }
+
+      // Send the request
+      var response = await request.send();
+      // Get the response body
+      String responseBody = await response.stream.bytesToString();
+      var responseData = jsonDecode(responseBody);
+      print(jsonEncode(responseData));
+      // Check the response status
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // Store response in shared preferences
+        onSuccess(responseData['message']);
+        isLoading(false);
+        LocalStorage.saveData(key: AppConstant.registrationApiResponse, data: jsonEncode(responseData));
+        Get.to(() => VerifyYourEmailView(email: email,));
+        timeCounter.value = 120;
+        await otpTimer();
+      } else {
+        isLoading(false);
+        onFail(responseData['message']);
+      }
+    } catch (e) {
+      isLoading(false);
+      onExceptionFail(e.toString());
+    }
+  }
+
+
+  Future vendorSignUpController ({
+    File? image,
+    required File legalId,
+    required String fullName,
+    required String email,
+    required String password,
+    required String contactNumber,
+    required String dobDate,
+    required Function onSuccess,
+    required Function onFail,
+    required Function onExceptionFail,
+  }) async {
+    try {
+      // Create a multipart request
+      isLoading(true);
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(Api.userRegister),
+      );
+
+      // Prepare the data map
+      Map<String,dynamic> data = {
+        "name": fullName,
+        "email": email,
+        "password": password,
+        "dobDate": dobDate,
+        "contactNumber": contactNumber,
+        "role": "vendor",
+      };
+
+      print(jsonEncode(data));
+
+      // Add JSON data as a field
+      request.fields['data'] = jsonEncode(data);
+
+      // Add the image file if provided
+      if (image != null) {
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'image', // Field name expected by the server
+            image.path,
+            filename: image.path.split('/').last,
+          ),
+        );
+      } else {
+        request.fields['image'] = ''; // Empty string if no image
+      }
+
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'legalId', // Field name expected by the server
+          legalId.path,
+          filename: legalId.path.split('/').last,
+        ),
+      );
 
       // Send the request
       var response = await request.send();

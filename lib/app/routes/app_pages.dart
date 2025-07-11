@@ -137,7 +137,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.VENDOR_DASHBOARD,
-      page: () => VendorDashboardView(),
+      page: () => VendorDashboardView(index: 0,),
       binding: VendorDashboardBinding(),
     ),
     GetPage(

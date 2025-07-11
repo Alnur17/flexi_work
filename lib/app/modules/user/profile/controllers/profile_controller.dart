@@ -20,6 +20,7 @@ class ProfileController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxBool isSubmit = false.obs;
+  RxBool isDelete = false.obs;
   Rx<ProfileResponseModel> profileResponseModel = ProfileResponseModel().obs;
   Rx<ContentResponseModel> contentResponseModel = ContentResponseModel().obs;
   Rx<LoginResponseModel> loginResponseModel = LoginResponseModel(success: null, message: null, data: null).obs;
@@ -76,6 +77,7 @@ class ProfileController extends GetxController {
         kSnackBar(message: message, bgColor: AppColors.green);
         profileResponseModel.value = ProfileResponseModel.fromJson(responseBody);
         LocalStorage.saveData(key: AppConstant.getProfileResponse, data: jsonEncode(responseBody));
+        await checkTheProfileResponse();
       } else {
         throw "Get profile is Failed!";
       }
@@ -257,6 +259,45 @@ class ProfileController extends GetxController {
       kSnackBar(message: "Get profile is Failed: $e", bgColor: AppColors.red);
     } finally {
       isLoading(false);
+    }
+  }
+
+
+
+  Future deleteUserController() async {
+    try {
+      isDelete(true);
+      loginResponseModel.value = LoginResponseModel.fromJson(jsonDecode(LocalStorage.getData(key: AppConstant.token)));
+
+      var headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': '${loginResponseModel.value.data!.accessToken}',
+      };
+
+      print(profileResponseModel.value.data?.sId);
+      dynamic responseBody = await BaseClient.handleResponse(
+        await BaseClient.deleteRequest(
+          api: "${Api.deleteUserResponse}${profileResponseModel.value.data?.sId}",
+          headers: headers,
+        ),
+      );
+
+      if (responseBody != null) {
+        print("hello ${jsonEncode(responseBody)}");
+        String message = responseBody['message'].toString();
+        kSnackBar(message: message, bgColor: AppColors.green);
+        LocalStorage.removeData(key: AppConstant.token);
+        LocalStorage.removeData(key: AppConstant.getProfileResponse);
+        Get.offAll(()=> LoginView());
+      } else {
+        throw "Get profile is Failed!";
+      }
+    } catch (e) {
+      debugPrint("Catch Error.........$e");
+      kSnackBar(message: "Get profile is Failed: $e", bgColor: AppColors.red);
+    } finally {
+      isDelete(false);
     }
   }
 

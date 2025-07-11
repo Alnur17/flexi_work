@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../common/app_color/app_colors.dart';
+import '../../../../../common/app_constant/app_constant.dart';
 import '../../../../../common/app_images/app_images.dart';
 import '../../../../../common/app_text_style/styles.dart';
+import '../../../../../common/local_store/local_store.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
 import '../../../../../common/widgets/custom_list_tile.dart';
@@ -116,7 +118,8 @@ class VendorProfileView extends GetView<VendorProfileController> {
               child: CustomButton(
                 text: 'Log Out',
                 onPressed: () {
-                  Get.offAll(() => LoginView());
+                  LocalStorage.removeData(key: AppConstant.token);
+                  Get.offAll(()=> LoginView());
                 },
                 imageAssetPath: AppImages.logout,
                 width: 150,

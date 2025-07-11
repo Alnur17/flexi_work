@@ -49,14 +49,8 @@ class BaseClient {
     return response;
   }
 
-  static deleteRequest({required String api, body}) async {
-    String token = LocalStorage.getData(key: AppConstant.token);
-    var headers = {
-      'Content-Type': "application/json",
-      "Authorization": "Bearer $token",
-    };
+  static deleteRequest({required String api, body, headers}) async {
     debugPrint("API Hit: $api");
-    debugPrint("body: $body");
     http.Response response = await http.delete(
       Uri.parse(api),
       headers: headers,

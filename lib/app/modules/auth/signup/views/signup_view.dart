@@ -75,24 +75,70 @@ class SignupView extends GetView {
                 text: signupController.isLoading.value == true ? "Submitting ...." : 'Sign Up',
                 onPressed: () async {
                   if(signupController.selectedRole.value == "user") {
-                    await signupController.signUpController(
-                      fullName: signupController.fullNameController.value.text,
-                      email: signupController.emailController.value.text,
-                      password: signupController.passwordController.value.text,
-                      contactNumber: signupController.mobileNumberController.value.text,
-                      dobDate: signupController.birthDateController.value.text,
-                      onSuccess: (e) async {
-                        kSnackBar(message: "$e", bgColor: AppColors.green);
-                      },
-                      onFail: (e) async {
-                        kSnackBar(message: "$e", bgColor: AppColors.red);
-                      },
-                      onExceptionFail: (e) async {
-                        kSnackBar(message: "$e", bgColor: AppColors.red);
-                      },
-                    );
+                    if(signupController.fullNameController.value.text == "") {
+                      kSnackBar(message: "Please enter your full name", bgColor: AppColors.red);
+                    } else if(signupController.emailController.value.text == "") {
+                      kSnackBar(message: "Please enter your email", bgColor: AppColors.red);
+                    } else if(signupController.passwordController.value.text == "") {
+                      kSnackBar(message: "Please enter your password", bgColor: AppColors.red);
+                    } else if(signupController.passwordController.value.text.length < 8) {
+                      kSnackBar(message: "Password must be at least 8 characters", bgColor: AppColors.red);
+                    } else if(signupController.mobileNumberController.value.text == "") {
+                      kSnackBar(message: "Please enter your mobile number", bgColor: AppColors.red);
+                    } else if(signupController.birthDateController.value.text == "") {
+                      kSnackBar(message: "Please enter your birth of date", bgColor: AppColors.red);
+                    } else {
+                      await signupController.signUpController(
+                        fullName: signupController.fullNameController.value.text,
+                        email: signupController.emailController.value.text,
+                        password: signupController.passwordController.value.text,
+                        contactNumber: signupController.mobileNumberController.value.text,
+                        dobDate: signupController.birthDateController.value.text,
+                        onSuccess: (e) async {
+                          kSnackBar(message: "$e", bgColor: AppColors.green);
+                        },
+                        onFail: (e) async {
+                          kSnackBar(message: "$e", bgColor: AppColors.red);
+                        },
+                        onExceptionFail: (e) async {
+                          kSnackBar(message: "$e", bgColor: AppColors.red);
+                        },
+                      );
+                    }
                   } else if(signupController.selectedRole.value == "vendor") {
-                    print("all vendor");
+                    if(signupController.fullNameController.value.text == "") {
+                      kSnackBar(message: "Please enter your full name", bgColor: AppColors.red);
+                    } else if(signupController.emailController.value.text == "") {
+                      kSnackBar(message: "Please enter your email", bgColor: AppColors.red);
+                    } else if(signupController.passwordController.value.text == "") {
+                      kSnackBar(message: "Please enter your password", bgColor: AppColors.red);
+                    } else if(signupController.passwordController.value.text.length < 8) {
+                      kSnackBar(message: "Password must be at least 8 characters", bgColor: AppColors.red);
+                    } else if(signupController.mobileNumberController.value.text == "") {
+                      kSnackBar(message: "Please enter your mobile number", bgColor: AppColors.red);
+                    } else if(signupController.birthDateController.value.text == "") {
+                      kSnackBar(message: "Please enter your birth of date", bgColor: AppColors.red);
+                    } else if(signupController.legalId.value.path == "") {
+                      kSnackBar(message: "Please upload legal Id", bgColor: AppColors.red);
+                    } else {
+                      await signupController.vendorSignUpController(
+                        legalId: signupController.legalId.value,
+                        fullName: signupController.fullNameController.value.text,
+                        email: signupController.emailController.value.text,
+                        password: signupController.passwordController.value.text,
+                        contactNumber: signupController.mobileNumberController.value.text,
+                        dobDate: signupController.birthDateController.value.text,
+                        onSuccess: (e) async {
+                          kSnackBar(message: "$e", bgColor: AppColors.green);
+                        },
+                        onFail: (e) async {
+                          kSnackBar(message: "$e", bgColor: AppColors.red);
+                        },
+                        onExceptionFail: (e) async {
+                          kSnackBar(message: "$e", bgColor: AppColors.red);
+                        },
+                      );
+                    }
                   } else if(signupController.selectedRole.value == "service_provider") {
                     print("all service_provider");
                   }

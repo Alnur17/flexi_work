@@ -1,3 +1,4 @@
+import 'package:flexi_work/app/modules/auth/forgot_password/views/forgot_password_view.dart';
 import 'package:flexi_work/app/modules/auth/login/views/login_view.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ import '../../../../../common/app_images/app_images.dart';
 import '../../../../../common/app_text_style/styles.dart';
 import '../../../../../common/size_box/custom_sizebox.dart';
 import '../../../../../common/widgets/custom_button.dart';
+import '../../../../../common/widgets/custom_snackbar.dart';
 import '../../../../../common/widgets/custom_textfield.dart';
 import '../controllers/forgot_password_controller.dart';
 
@@ -27,7 +29,7 @@ class ResetPasswordView extends GetView {
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Get.off(ForgotPasswordView(),preventDuplicates: false);
           },
           child: Image.asset(
             AppImages.back,
@@ -109,15 +111,25 @@ class ResetPasswordView extends GetView {
             Obx(()=>CustomButton(
               text: forgotPasswordController.isChangePassword.value == true ? 'Submitting....' : 'Update Password',
               onPressed: () async {
-                await forgotPasswordController.checkTheRegistrationLogin();
-                print(forgotPasswordController.forgotPasswordResponseModel.value.data?.token);
-                if(forgotPasswordController.forgotPasswordResponseModel.value.data?.token != null) {
-                  await forgotPasswordController.resetPasswordController(
-                    accessToken: forgotPasswordController.forgotPasswordResponseModel.value.data!.token!,
-                    email: email,
-                    newPassword: forgotPasswordController.passwordController.value.text,
-                    confirmPassword: forgotPasswordController.confirmPasswordController.value.text,
-                  );
+                if(forgotPasswordController.passwordController.value.text == "") {
+                  kSnackBar(message: "Please enter your password", bgColor: AppColors.red);
+                } else if(forgotPasswordController.confirmPasswordController.value.text == "") {
+                  kSnackBar(message: "Please enter your confirm password", bgColor: AppColors.red);
+                } else if(forgotPasswordController.confirmPasswordController.value.text != forgotPasswordController.passwordController.value.text) {
+                  kSnackBar(message: "Password is not match", bgColor: AppColors.red);
+                } else if(forgotPasswordController.passwordController.value.text.length < 8) {
+                  kSnackBar(message: "Password must be at least 8 characters", bgColor: AppColors.red);
+                } else {
+                  await forgotPasswordController.checkTheRegistrationLogin();
+                  print(forgotPasswordController.forgotPasswordResponseModel.value.data?.token);
+                  if(forgotPasswordController.forgotPasswordResponseModel.value.data?.token != null) {
+                    await forgotPasswordController.resetPasswordController(
+                      accessToken: forgotPasswordController.forgotPasswordResponseModel.value.data!.token!,
+                      email: email,
+                      newPassword: forgotPasswordController.passwordController.value.text,
+                      confirmPassword: forgotPasswordController.confirmPasswordController.value.text,
+                    );
+                  }
                 }
               },
               gradientColors: AppColors.gradientColor,
